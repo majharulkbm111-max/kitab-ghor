@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>কিতাব ঘর — আপনার কওমি লাইব্রেরি</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+:root{
+  --bg:#f0f0f5;--bg2:#ffffff;--bg3:#f6f6fb;--bg4:#ededf5;
+  --border:rgba(0,0,0,0.07);--border2:rgba(0,0,0,0.12);
+  --text:#0f0f1a;--text2:#4a4a6a;--text3:#8a8aaa;
+  --purple:#6c4fcf;--purple-dim:rgba(108,79,207,0.12);--purple-border:rgba(108,79,207,0.25);
+  --green:#1a7a5e;--green-dim:rgba(26,122,94,0.12);
+  --gold:#b8860b;--gold-dim:rgba(184,134,11,0.12);
+  --danger:#e53e3e;--success:#2ecc71;
+  --radius:14px;--radius-sm:10px;
+  --shadow:0 2px 16px rgba(0,0,0,0.08);
+  --font:'Hind Siliguri','Inter',sans-serif;--transition:0.18s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:inherit}
+input,textarea,select{font-family:inherit}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+.page{display:none}.page.active{display:block}
+#public-site{display:block}
+#admin-wrap{display:none}
+#admin-wrap.active{display:flex;min-height:100vh}
+
+.app-header{background:var(--bg2);padding:16px 16px 0;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50}
+.app-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.app-title{font-size:1.5rem;font-weight:700;color:var(--text)}
+.app-subtitle{font-size:0.8rem;color:var(--text3);margin-top:1px}
+.header-right{display:flex;gap:8px}
+.btn-icon{width:36px;height:36px;border-radius:9px;border:1px solid var(--border2);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;flex-shrink:0}
+
+.search-wrap{padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--border)}
+.search-inner{position:relative}
+.search-inner input{width:100%;padding:11px 16px 11px 40px;border-radius:12px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:0.9rem;outline:none;transition:var(--transition);font-family:var(--font)}
+.search-inner input:focus{border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-dim)}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:0.95rem;pointer-events:none}
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,0)}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px 4px;gap:3px;font-size:0.65rem;font-weight:500;color:var(--text3);cursor:pointer;transition:var(--transition)}
+.nav-item.active{color:var(--green)}
+.nav-item.active .nav-icon{background:var(--green-dim)}
+.nav-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:var(--transition)}
+
+.scroll-content{padding-bottom:80px}
+
+/* hero card */
+.hero-card{margin:14px 16px;background:linear-gradient(135deg,#1a5c48 0%,#0f3d2e 100%);border-radius:18px;padding:18px;color:#fff;position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.hero-line{font-size:0.78rem;opacity:0.8;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.hero-big{font-size:1.7rem;font-weight:700;margin:10px 0 3px}
+.hero-small{font-size:0.78rem;opacity:0.7;margin-bottom:12px}
+.prayer-row{display:flex;gap:5px;overflow-x:auto;padding-bottom:2px}
+.prayer-row::-webkit-scrollbar{display:none}
+.prayer-item{flex-shrink:0;background:rgba(255,255,255,0.1);border-radius:9px;padding:7px 10px;text-align:center;min-width:64px}
+.prayer-item.ap{background:rgba(255,255,255,0.22);border:1px solid rgba(255,255,255,0.3)}
+.pname{font-size:0.65rem;opacity:0.75;margin-bottom:2px}
+.ptime{font-size:0.8rem;font-weight:700}
+
+/* sections */
+.home-section{padding:16px 16px 6px}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.section-title{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:7px}
+.section-accent{width:4px;height:18px;border-radius:2px;display:inline-block}
+.count-badge{font-size:0.7rem;font-weight:600;color:var(--text3);background:var(--bg4);padding:2px 7px;border-radius:100px;border:1px solid var(--border)}
+.sec-divider{height:8px;background:var(--bg)}
+
+/* cat grid */
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.cat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:var(--transition);text-align:center;-webkit-tap-highlight-color:transparent}
+.cat-card:active{transform:scale(0.96);border-color:var(--border2)}
+.cat-icon-wrap{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.15rem}
+.cat-name{font-size:0.75rem;font-weight:600;color:var(--text);line-height:1.3}
+
+/* book cards */
+.book-list{display:flex;flex-direction:column;gap:9px}
+.book-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:13px 14px;display:flex;gap:12px;cursor:pointer;transition:var(--transition);align-items:flex-start;-webkit-tap-highlight-color:transparent}
+.book-card:active{background:var(--bg3)}
+.book-thumb{width:50px;height:66px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem;overflow:hidden;background:var(--bg3)}
+.book-thumb img{width:100%;height:100%;object-fit:cover}
+.book-info{flex:1;min-width:0}
+.book-title{font-size:0.88rem;font-weight:700;line-height:1.3;margin-bottom:3px}
+.book-author{font-size:0.73rem;color:var(--text3);margin-bottom:5px}
+.book-tags{display:flex;gap:4px;flex-wrap:wrap}
+.book-tag{font-size:0.66rem;font-weight:600;padding:2px 6px;border-radius:5px}
+.tag-purple{background:var(--purple-dim);color:var(--purple)}
+.tag-green{background:var(--green-dim);color:var(--green)}
+.tag-gold{background:var(--gold-dim);color:var(--gold)}
+.book-read-btn{flex-shrink:0;width:34px;height:34px;border-radius:9px;border:none;background:var(--purple-dim);color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:0.9rem;align-self:center}
+
+/* reader */
+.drive-reader{width:100%;height:calc(100vh - 260px);min-height:400px;border:none;background:var(--bg3);border-radius:12px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;font-size:0.85rem;font-weight:600;border:none;cursor:pointer;transition:var(--transition);font-family:var(--font);-webkit-tap-highlight-color:transparent}
+.btn-primary{background:var(--green);color:#fff}
+.btn-secondary{background:var(--bg3);color:var(--text);border:1px solid var(--border2)}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-sm{padding:7px 12px;font-size:0.78rem;border-radius:8px}
+.btn-xs{padding:4px 9px;font-size:0.7rem;border-radius:7px}
+.btn-full{width:100%;justify-content:center}
+
+/* fav empty */
+.fav-empty{text-align:center;padding:60px 20px;color:var(--text3)}
+
+/* toast */
+#toast-c{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:999;display:flex;flex-direction:column;gap:7px;align-items:center;pointer-events:none}
+.toast{background:rgba(15,15,26,0.9);color:#fff;padding:8px 18px;border-radius:100px;font-size:0.78rem;font-weight:500;backdrop-filter:blur(8px);white-space:nowrap;animation:tin 0.2s ease}
+@keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* modal */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.modal-ov.open{display:flex}
+.modal-sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-height:92vh;overflow-y:auto;padding:18px 18px 30px}
+.modal-handle{width:38px;height:4px;background:var(--border2);border-radius:2px;margin:0 auto 14px}
+.modal-title{font-size:1rem;font-weight:700;margin-bottom:14px}
+
+/* confirm */
+.confirm-ov{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.confirm-ov.open{display:flex}
+.confirm-box{background:var(--bg2);border-radius:var(--radius);padding:22px;width:100%;max-width:320px}
+.confirm-box h3{font-size:0.95rem;font-weight:700;margin-bottom:7px}
+.confirm-box p{font-size:0.82rem;color:var(--text2);margin-bottom:18px}
+.confirm-actions{display:flex;gap:8px;justify-content:flex-end}
+
+/* admin */
+.admin-sidebar{width:220px;background:var(--bg2);border-right:1px solid var(--border);padding:18px 0;flex-shrink:0;display:flex;flex-direction:column}
+.admin-logo{padding:0 14px 14px;border-bottom:1px solid var(--border);margin-bottom:10px}
+.admin-logo-text{font-weight:700;font-size:0.92rem}
+.admin-logo-sub{font-size:0.68rem;color:var(--text3);margin-top:2px}
+.admin-nav-item{display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:0.83rem;font-weight:500;color:var(--text2);cursor:pointer;transition:var(--transition);border-left:2px solid transparent}
+.admin-nav-item:hover{color:var(--text);background:var(--bg3)}
+.admin-nav-item.active{color:var(--purple);background:var(--purple-dim);border-left-color:var(--purple)}
+.admin-main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.admin-topbar{padding:12px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg2);flex-wrap:wrap;gap:8px}
+.admin-topbar-title{font-weight:700;font-size:0.95rem}
+.admin-content{flex:1;padding:20px;overflow-y:auto;background:var(--bg)}
+.admin-panel{display:none}.admin-panel.active{display:block}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px}
+.stat-num{font-size:1.6rem;font-weight:800;line-height:1}
+.stat-label{font-size:0.73rem;color:var(--text2);margin-top:4px}
+.admin-table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px}
+.admin-table-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);gap:8px;flex-wrap:wrap}
+.admin-search{position:relative}
+.admin-search input{padding:7px 11px 7px 30px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:0.8rem;outline:none;width:200px;font-family:var(--font)}
+.admin-search .si{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:0.78rem}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:9px 13px;font-size:0.7rem;font-weight:600;color:var(--text3);border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:10px 13px;font-size:0.8rem;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg3)}
+.td-actions{display:flex;gap:4px}
+.status-dot{display:inline-flex;align-items:center;gap:4px;font-size:0.7rem;font-weight:600}
+.status-dot::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.status-pub::before{background:var(--success)}
+.status-draft::before{background:var(--text3)}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:0.76rem;font-weight:600;color:var(--text2);margin-bottom:4px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:9px 11px;border-radius:9px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:0.84rem;outline:none;transition:var(--transition);font-family:var(--font)}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-dim)}
+.form-group textarea{resize:vertical;min-height:65px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-hint{font-size:0.7rem;color:var(--text3);margin-top:3px}
+.upload-hint{background:var(--purple-dim);border:1px dashed var(--purple-border);border-radius:8px;padding:10px;font-size:0.76rem;color:var(--purple);margin-top:5px}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);padding:20px}
+.login-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px;width:100%;max-width:360px}
+.login-title{font-size:1.15rem;font-weight:700;margin-bottom:3px}
+.login-sub{font-size:0.78rem;color:var(--text3);margin-bottom:20px}
+.login-error{background:rgba(229,62,62,0.1);color:var(--danger);font-size:0.78rem;padding:8px 11px;border-radius:8px;margin-bottom:12px;display:none}
+.quick-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+
+/* cat+custom input combo */
+.cat-combo{display:flex;flex-direction:column;gap:6px}
+.cat-combo select{width:100%;padding:9px 11px;border-radius:9px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:0.84rem;outline:none;transition:var(--transition);font-family:var(--font)}
+.cat-combo select:focus{border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-dim)}
+.cat-combo input{width:100%;padding:9px 11px;border-radius:9px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:0.84rem;outline:none;transition:var(--transition);font-family:var(--font);display:none}
+.cat-combo input.show{display:block}
+.cat-combo input:focus{border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-dim)}
+
+@media(max-width:600px){
+  .admin-sidebar{display:none}
+  .admin-main{width:100%}
+  #admin-wrap.active{flex-direction:column}
+  #adm-mobile-nav{display:block!important}
+}
+
+/* icons */
+.ic{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;vertical-align:-0.2em}
+.ic.fill{fill:currentColor}
+.ic-lg{width:44px;height:44px}
+.btn-icon{color:var(--text)}
+.btn-icon .ic{width:18px;height:18px;vertical-align:middle}
+.nav-icon .ic{width:20px;height:20px;vertical-align:middle}
+.nav-item.active .nav-icon .ic{stroke-width:2.3}
+.btn .ic{width:1.05em;height:1.05em;vertical-align:-0.18em}
+.search-icon{display:flex;align-items:center}
+.search-icon .ic{width:17px;height:17px}
+.si{display:flex;align-items:center}
+.si .ic{width:14px;height:14px}
+.fav-on{color:var(--danger)}
+.book-read-btn .ic{width:14px;height:14px}
+.empty-ic{display:flex;justify-content:center;margin-bottom:10px;color:var(--text3)}
+.empty-ic .ic{width:44px;height:44px;stroke-width:1.6}
+.inline-ic .ic{width:1em;height:1em;vertical-align:-0.15em}
+
+/* banner slider */
+.banner-wrap{margin:14px 16px;border-radius:18px;overflow:hidden;position:relative;aspect-ratio:16/9;background:var(--bg3)}
+.banner-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.banner-track::-webkit-scrollbar{display:none}
+.banner-slide{flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always}
+.banner-slide.has-link{cursor:pointer}
+.banner-slide img{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}
+.banner-dots{position:absolute;left:0;right:0;bottom:9px;display:flex;justify-content:center;gap:6px;pointer-events:none}
+.banner-dots i{width:7px;height:7px;border-radius:4px;background:rgba(255,255,255,.55);transition:all .2s;box-shadow:0 0 3px rgba(0,0,0,.35)}
+.banner-dots i.on{width:20px;background:#fff}
+
+/* drawer */
+.drawer-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .25s;z-index:140}
+.drawer-ov.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;bottom:0;right:0;width:80%;max-width:310px;background:var(--bg2);z-index:150;transform:translateX(105%);transition:transform .26s ease;display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,.18);padding-top:env(safe-area-inset-top,0);visibility:hidden}
+.drawer.open{transform:none;visibility:visible}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:18px 16px 14px;border-bottom:1px solid var(--border)}
+.drawer-title{font-size:1.25rem;font-weight:700;line-height:1.3}
+.drawer-sub{font-size:.75rem;color:var(--text3)}
+.drawer-list{flex:1;overflow-y:auto;padding:8px}
+.drawer-item{width:100%;display:flex;align-items:center;gap:12px;padding:10px 10px;border:none;background:transparent;color:var(--text);font-size:.92rem;font-weight:500;border-radius:11px;text-align:left;-webkit-tap-highlight-color:transparent}
+.drawer-item:active{background:var(--bg3)}
+.drawer-item .di-ic{width:36px;height:36px;border-radius:10px;background:var(--green-dim);color:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.drawer-item .di-ic .ic{width:19px;height:19px}
+.drawer-item span.di-t{flex:1;min-width:0}
+.drawer-item .chev{width:16px;height:16px;color:var(--text3)}
+
+.drawer-head.has-img{min-height:150px;align-items:stretch;background-size:cover;background-position:center;border-bottom:none}
+.drawer-head.has-img>div:first-child{align-self:flex-end}
+.drawer-head.has-img .btn-icon{align-self:flex-start}
+.drawer-head.has-img .drawer-title{color:#fff}
+.drawer-head.has-img .drawer-sub{color:rgba(255,255,255,.85)}
+/* contact / info sheet */
+.ct-row{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--border);border-radius:12px;margin-bottom:8px;background:var(--bg3);color:var(--text)}
+.ct-row>.ic{width:20px;height:20px;color:var(--green)}
+.ct-row .chev{width:16px;height:16px;color:var(--text3)}
+.ct-l{font-size:.72rem;color:var(--text3)}
+.ct-v{font-size:.9rem;font-weight:600;word-break:break-word}
+.info-text{white-space:pre-wrap;font-size:.88rem;line-height:1.8;color:var(--text2);word-break:break-word}
+
+/* admin lists */
+.adm-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:14px}
+.adm-card h3{font-size:.88rem;font-weight:700;margin-bottom:14px}
+.adm-row{display:flex;align-items:center;gap:10px;padding:10px 2px;border-bottom:1px solid var(--border)}
+.adm-row:last-child{border-bottom:none}
+.adm-ic{width:34px;height:34px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--purple)}
+.adm-t{font-size:.84rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adm-s{font-size:.7rem;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adm-bn-thumb{width:80px;height:45px;object-fit:cover;border-radius:7px;background:var(--bg3);flex-shrink:0}
+.adm-empty{text-align:center;padding:22px;color:var(--text3);font-size:.8rem}
+.adm-acts{display:flex;gap:4px;flex-shrink:0}
+button:disabled{opacity:.35;cursor:default}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol><symbol id="i-books" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol><symbol id="i-back" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol><symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol><symbol id="i-cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-key" viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol><symbol id="i-ext" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></symbol><symbol id="i-chev" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol><symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol><symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol><symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol><symbol id="i-youtube" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></symbol><symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol><symbol id="i-telegram" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol><symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></symbol><symbol id="i-mailsend" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol></svg>
+
+<!-- PUBLIC -->
+<div id="public-site">
+
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+    <div class="app-header">
+      <div class="app-header-top">
+        <div>
+          <div class="app-title" id="site-title">কিতাব ঘর</div>
+          <div class="app-subtitle" id="site-subtitle">আপনার কওমি লাইব্রেরি</div>
+        </div>
+        <div class="header-right">
+          <button class="btn-icon" onclick="goPage('search')" aria-label="খুঁজুন"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg></button>
+          <button class="btn-icon" onclick="openDrawer()" aria-label="মেনু"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-content">
+      <div class="banner-wrap" id="banner-wrap">
+        <div class="banner-track" id="banner-track"></div>
+        <div class="banner-dots" id="banner-dots"></div>
+      </div>
+      <div id="home-sections"></div>
+    </div>
+    <nav class="bottom-nav">
+      <div class="nav-item active" onclick="goPage('home')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></div><span>হোম</span></div>
+      <div class="nav-item" onclick="goPage('all-books')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-books"/></svg></div><span>কিতাব</span></div>
+      <div class="nav-item" onclick="goPage('offline')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></div><span>অফলাইন</span></div>
+      <div class="nav-item" onclick="goPage('favorites')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></div><span>পছন্দ</span></div>
+    </nav>
+  </div>
+
+  <!-- ALL BOOKS -->
+  <div id="page-all-books" class="page">
+    <div class="app-header">
+      <div class="app-header-top">
+        <div style="display:flex;align-items:center;gap:9px">
+          <button class="btn-icon" onclick="goBack()" aria-label="পেছনে"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></button>
+          <div><div class="app-title">সব কিতাব</div></div>
+        </div>
+        <button class="btn-icon" onclick="goPage('home')" aria-label="হোম"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></button>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <div class="search-inner">
+        <span class="search-icon"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg></span>
+        <input type="text" placeholder="কিতাব খুঁজুন..." oninput="renderAllBooks(this.value)">
+      </div>
+    </div>
+    <div class="scroll-content" style="padding:14px 16px">
+      <div id="all-books-list" class="book-list"></div>
+    </div>
+    <nav class="bottom-nav">
+      <div class="nav-item" onclick="goPage('home')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></div><span>হোম</span></div>
+      <div class="nav-item active" onclick="goPage('all-books')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-books"/></svg></div><span>কিতাব</span></div>
+      <div class="nav-item" onclick="goPage('offline')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></div><span>অফলাইন</span></div>
+      <div class="nav-item" onclick="goPage('favorites')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></div><span>পছন্দ</span></div>
+    </nav>
+  </div>
+
+  <!-- CATEGORY -->
+  <div id="page-category" class="page">
+    <div class="app-header">
+      <div class="app-header-top">
+        <div style="display:flex;align-items:center;gap:9px">
+          <button class="btn-icon" onclick="goBack()" aria-label="পেছনে"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></button>
+          <div><div class="app-title" id="cat-page-title">বিভাগ</div></div>
+        </div>
+        <button class="btn-icon" onclick="goPage('home')" aria-label="হোম"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></button>
+      </div>
+    </div>
+    <div class="scroll-content" style="padding:14px 16px">
+      <div id="cat-books-list" class="book-list"></div>
+    </div>
+    <nav class="bottom-nav">
+      <div class="nav-item" onclick="goPage('home')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></div><span>হোম</span></div>
+      <div class="nav-item" onclick="goPage('all-books')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-books"/></svg></div><span>কিতাব</span></div>
+      <div class="nav-item" onclick="goPage('offline')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></div><span>অফলাইন</span></div>
+      <div class="nav-item" onclick="goPage('favorites')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></div><span>পছন্দ</span></div>
+    </nav>
+  </div>
+
+  <!-- BOOK READER -->
+  <div id="page-book-detail" class="page">
+    <div class="app-header">
+      <div class="app-header-top">
+        <div style="display:flex;align-items:center;gap:9px">
+          <button class="btn-icon" onclick="goBack()" aria-label="পেছনে"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></button>
+          <div class="app-title" style="font-size:1rem" id="reader-title">বই পড়ুন</div>
+        </div>
+        <div class="header-right">
+          <button class="btn-icon" id="fav-btn" onclick="toggleFav()" aria-label="পছন্দ"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button>
+          <button class="btn-icon" onclick="goPage('home')" aria-label="হোম"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-content">
+      <div style="padding:14px 16px;background:var(--bg2);border-bottom:1px solid var(--border)">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div id="reader-cover" style="width:72px;height:96px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;overflow:hidden"></div>
+          <div style="flex:1;min-width:0">
+            <div id="reader-book-title" style="font-size:1.1rem;font-weight:700;line-height:1.3;margin-bottom:5px"></div>
+            <div id="reader-meta" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px"></div>
+            <div id="reader-desc" style="font-size:0.8rem;color:var(--text2);line-height:1.5"></div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:14px 16px" id="reader-area">
+        <div id="reader-no-link" style="display:none;text-align:center;padding:40px 20px;color:var(--text3)">
+          <div class="empty-ic"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg></div>
+          <div style="font-size:0.88rem">এই বইয়ের Drive লিংক যোগ করা হয়নি।</div>
+          <div style="font-size:0.76rem;margin-top:5px">অ্যাডমিন থেকে লিংক যোগ করুন।</div>
+        </div>
+        <iframe id="drive-iframe" class="drive-reader" style="display:none" allowfullscreen></iframe>
+      </div>
+      <div style="padding:0 16px 14px;display:flex;gap:9px;flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm" id="open-drive-btn" onclick="openDrive()" style="display:none"><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg> Drive-এ খুলুন</button>
+        <button class="btn btn-secondary btn-sm" id="dl-btn" onclick="dlBook()" style="display:none"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg> ডাউনলোড</button>
+      </div>
+    </div>
+    <nav class="bottom-nav">
+      <div class="nav-item" onclick="goPage('home')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></div><span>হোম</span></div>
+      <div class="nav-item" onclick="goPage('all-books')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-books"/></svg></div><span>কিতাব</span></div>
+      <div class="nav-item" onclick="goPage('offline')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></div><span>অফলাইন</span></div>
+      <div class="nav-item" onclick="goPage('favorites')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></div><span>পছন্দ</span></div>
+    </nav>
+  </div>
+
+  <!-- SEARCH -->
+  <div id="page-search" class="page">
+    <div class="app-header">
+      <div class="app-header-top">
+        <div style="display:flex;align-items:center;gap:9px">
+          <button class="btn-icon" onclick="goBack()" aria-label="পেছনে"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></button>
+          <div class="app-title">কিতাব খুঁজুন</div>
+        </div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <div class="search-inner">
+        <span class="search-icon"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg></span>
+        <input type="text" id="srch-inp" placeholder="আপনার পছন্দের বই খুঁজুন..." oninput="runSearch(this.value)">
+      </div>
+    </div>
+    <div class="scroll-content" style="padding:14px 16px">
+      <div id="srch-list" class="book-list"></div>
+      <div id="srch-empty" style="display:none;text-align:center;padding:40px;color:var(--text3)">
+        <div class="empty-ic"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg></div>
+        <div>কোনো কিতাব পাওয়া যায়নি</div>
+      </div>
+    </div>
+    <nav class="bottom-nav">
+      <div class="nav-item" onclick="goPage('home')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></div><span>হোম</span></div>
+      <div class="nav-item" onclick="goPage('all-books')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-books"/></svg></div><span>কিতাব</span></div>
+      <div class="nav-item" onclick="goPage('offline')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></div><span>অফলাইন</span></div>
+      <div class="nav-item" onclick="goPage('favorites')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></div><span>পছন্দ</span></div>
+    </nav>
+  </div>
+
+  <!-- FAVORITES -->
+  <div id="page-favorites" class="page">
+    <div class="app-header">
+      <div class="app-header-top">
+        <div style="display:flex;align-items:center;gap:9px">
+          <button class="btn-icon" onclick="goBack()" aria-label="পেছনে"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></button>
+          <div class="app-title">পছন্দের কিতাব</div>
+        </div>
+        <button class="btn-icon" onclick="goPage('home')" aria-label="হোম"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></button>
+      </div>
+    </div>
+    <div class="scroll-content" style="padding:14px 16px">
+      <div id="fav-list" class="book-list"></div>
+      <div id="fav-empty" class="fav-empty" style="display:none">
+        <div class="empty-ic"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></div>
+        <div>কোনো পছন্দের কিতাব নেই।<br><span class="inline-ic">বই পড়ার সময় <svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg> চাপুন।</span></div>
+      </div>
+    </div>
+    <nav class="bottom-nav">
+      <div class="nav-item" onclick="goPage('home')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></div><span>হোম</span></div>
+      <div class="nav-item" onclick="goPage('all-books')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-books"/></svg></div><span>কিতাব</span></div>
+      <div class="nav-item" onclick="goPage('offline')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></div><span>অফলাইন</span></div>
+      <div class="nav-item active" onclick="goPage('favorites')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></div><span>পছন্দ</span></div>
+    </nav>
+  </div>
+
+  <!-- OFFLINE -->
+  <div id="page-offline" class="page">
+    <div class="app-header">
+      <div class="app-header-top">
+        <div style="display:flex;align-items:center;gap:9px">
+          <button class="btn-icon" onclick="goBack()" aria-label="পেছনে"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg></button>
+          <div class="app-title">অফলাইন</div>
+        </div>
+        <button class="btn-icon" onclick="goPage('home')" aria-label="হোম"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></button>
+      </div>
+    </div>
+    <div class="scroll-content" style="padding:40px 16px;text-align:center;color:var(--text3)">
+      <div class="empty-ic"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></div>
+      <div style="font-size:0.95rem;font-weight:600;margin-bottom:7px">অফলাইন পড়ার সুবিধা</div>
+      <div style="font-size:0.8rem;line-height:1.7">বই পড়ার সময় Drive-এ খুলে<br>ডাউনলোড করে অফলাইনে পড়ুন।</div>
+    </div>
+    <nav class="bottom-nav">
+      <div class="nav-item" onclick="goPage('home')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></div><span>হোম</span></div>
+      <div class="nav-item" onclick="goPage('all-books')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-books"/></svg></div><span>কিতাব</span></div>
+      <div class="nav-item active" onclick="goPage('offline')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg></div><span>অফলাইন</span></div>
+      <div class="nav-item" onclick="goPage('favorites')"><div class="nav-icon"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></div><span>পছন্দ</span></div>
+    </nav>
+  </div>
+
+</div><!-- /public-site -->
+
+<!-- DRAWER -->
+<div class="drawer-ov" id="drawer-ov" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer" aria-label="মেনু">
+  <div class="drawer-head" id="drawer-head">
+    <div style="min-width:0">
+      <div class="drawer-title" id="drawer-title">কিতাব ঘর</div>
+      <div class="drawer-sub" id="drawer-sub"></div>
+    </div>
+    <button class="btn-icon" onclick="closeDrawer()" aria-label="বন্ধ করুন"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>
+  <nav class="drawer-list" id="drawer-list"></nav>
+</aside>
+
+<!-- INFO SHEET (contact / page) -->
+<div class="modal-ov" id="info-modal" onclick="if(event.target===this)closeInfo()">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="info-ttl"></div>
+    <div id="info-body"></div>
+    <button class="btn btn-ghost btn-full" style="margin-top:14px" onclick="closeInfo()">বন্ধ করুন</button>
+  </div>
+</div>
+
+<!-- MENU ITEM MODAL (admin) -->
+<div class="modal-ov" id="menu-modal" onclick="if(event.target===this)closeMenuModal()">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="menu-modal-ttl">নতুন মেনু আইটেম</div>
+    <div class="form-group"><label>নাম *</label><input type="text" id="mi-label" placeholder="যেমন: আমাদের সম্পর্কে"></div>
+    <div class="form-row">
+      <div class="form-group"><label>আইকন</label><select id="mi-icon"></select></div>
+      <div class="form-group"><label>ক্লিক করলে কী হবে</label>
+        <select id="mi-type" onchange="onMenuTypeChange()">
+          <option value="link">লিংক খুলবে</option>
+          <option value="page">লেখা/পেজ দেখাবে</option>
+          <option value="contact">যোগাযোগ তথ্য</option>
+          <option value="share">অ্যাপ শেয়ার</option>
+          <option value="search">সার্চ পেজ</option>
+          
+        </select>
+      </div>
+    </div>
+    <div class="form-group" id="mi-url-g"><label>লিংক *</label><input type="text" id="mi-url" placeholder="https://...   বা   tel:+8801XXXXXXXXX   বা   mailto:abc@mail.com"></div>
+    <div class="form-group" id="mi-body-g"><label>পেজের লেখা *</label><textarea id="mi-body" style="min-height:140px" placeholder="এখানে যা লিখবেন তাই পপআপে দেখাবে..."></textarea></div>
+    <div class="form-group"><label>মেনুতে দেখাবে?</label><select id="mi-show"><option value="yes">হ্যাঁ</option><option value="no">না</option></select></div>
+    <div style="display:flex;gap:9px;margin-top:6px">
+      <button class="btn btn-purple btn-full" onclick="saveMenu()"><svg class="ic" aria-hidden="true"><use href="#i-save"/></svg> সেভ করুন</button>
+      <button class="btn btn-ghost" onclick="closeMenuModal()" style="min-width:75px">বাতিল</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin-wrap">
+  <div id="adm-login" class="login-wrap">
+    <div class="login-card">
+      <div style="margin-bottom:7px;text-align:center;color:var(--purple)"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-books"/></svg></div>
+      <h2 class="login-title">অ্যাডমিন প্যানেল</h2>
+      <p class="login-sub">কিতাব ঘর — অ্যাডমিন লগইন করুন</p>
+      <div class="login-error" id="login-err">ভুল ইউজারনেম বা পাসওয়ার্ড।</div>
+      <div class="form-group"><label>ইউজারনেম</label><input type="text" id="adm-u" placeholder="admin" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <div class="form-group"><label>পাসওয়ার্ড</label><input type="password" id="adm-p" placeholder="••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button class="btn btn-purple btn-full" onclick="doLogin()">লগইন করুন</button>
+      <p style="text-align:center;margin-top:12px"><button class="btn btn-ghost btn-sm" onclick="exitAdmin()"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg> সাইটে ফিরুন</button></p>
+    </div>
+  </div>
+  <div id="adm-dash" style="display:none;flex:1;flex-direction:column">
+    <div style="display:flex;flex:1;min-height:100vh">
+      <aside class="admin-sidebar">
+        <div class="admin-logo"><div class="admin-logo-text"><svg class="ic" aria-hidden="true"><use href="#i-books"/></svg> কিতাব ঘর</div><div class="admin-logo-sub">Admin Panel</div></div>
+        <div class="admin-nav-item active" onclick="showPanel('dashboard')" data-panel="dashboard"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg> ড্যাশবোর্ড</div>
+        <div class="admin-nav-item" onclick="showPanel('books')" data-panel="books"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg> কিতাব পরিচালনা</div>
+        <div class="admin-nav-item" onclick="showPanel('categories')" data-panel="categories"><svg class="ic" aria-hidden="true"><use href="#i-folder"/></svg> বিভাগ</div>
+        <div class="admin-nav-item" onclick="showPanel('banners')" data-panel="banners"><svg class="ic" aria-hidden="true"><use href="#i-image"/></svg> ব্যানার</div>
+        <div class="admin-nav-item" onclick="showPanel('menu')" data-panel="menu"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg> ড্রয়ার মেনু</div>
+        <div class="admin-nav-item" onclick="showPanel('contact')" data-panel="contact"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg> যোগাযোগ তথ্য</div>
+        <div class="admin-nav-item" onclick="showPanel('settings')" data-panel="settings"><svg class="ic" aria-hidden="true"><use href="#i-cog"/></svg> সেটিংস</div>
+        <div style="margin-top:auto;padding:12px 14px">
+          <button class="btn btn-ghost btn-sm" onclick="exitAdmin()" style="width:100%;justify-content:center;margin-bottom:7px"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg> সাইট দেখুন</button>
+          <button class="btn btn-sm" style="width:100%;justify-content:center;background:rgba(229,62,62,0.1);color:var(--danger);border:1px solid rgba(229,62,62,0.2)" onclick="doLogout()">লগআউট</button>
+        </div>
+      </aside>
+      <div class="admin-main">
+        <!-- Mobile nav bar (only visible on mobile) -->
+        <div id="adm-mobile-nav" style="display:none;background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 14px;overflow-x:auto;white-space:nowrap">
+          <button class="btn btn-ghost btn-sm" onclick="showPanel('dashboard')" style="margin-right:4px"><svg class="ic" aria-hidden="true"><use href="#i-chart"/></svg></button>
+          <button class="btn btn-ghost btn-sm" onclick="showPanel('books')" style="margin-right:4px"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg> কিতাব</button>
+          <button class="btn btn-ghost btn-sm" onclick="showPanel('categories')" style="margin-right:4px"><svg class="ic" aria-hidden="true"><use href="#i-folder"/></svg> বিভাগ</button>
+          <button class="btn btn-ghost btn-sm" onclick="showPanel('banners')" style="margin-right:4px"><svg class="ic" aria-hidden="true"><use href="#i-image"/></svg> ব্যানার</button>
+          <button class="btn btn-ghost btn-sm" onclick="showPanel('menu')" style="margin-right:4px"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg> মেনু</button>
+          <button class="btn btn-ghost btn-sm" onclick="showPanel('contact')" style="margin-right:4px"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg> যোগাযোগ</button>
+          <button class="btn btn-ghost btn-sm" onclick="showPanel('settings')" style="margin-right:4px"><svg class="ic" aria-hidden="true"><use href="#i-cog"/></svg></button>
+          <button class="btn btn-ghost btn-sm" onclick="exitAdmin()" style="margin-right:4px"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg> সাইট</button>
+          <button class="btn btn-sm" onclick="doLogout()" style="background:rgba(229,62,62,0.1);color:var(--danger);border:1px solid rgba(229,62,62,0.2)">লগআউট</button>
+        </div>
+        <div class="admin-topbar">
+          <div class="admin-topbar-title" id="adm-top-title">ড্যাশবোর্ড</div>
+          <button class="btn btn-purple btn-sm" onclick="openAddBook()">+ কিতাব যোগ করুন</button>
+        </div>
+        <div class="admin-content">
+
+          <div class="admin-panel active" id="panel-dashboard">
+            <div class="stat-grid" id="dash-stats"></div>
+            <div class="quick-actions">
+              <button class="btn btn-purple btn-sm" onclick="openAddBook()">+ কিতাব যোগ করুন</button>
+              <button class="btn btn-secondary btn-sm" onclick="showPanel('categories')">+ বিভাগ</button>
+              <button class="btn btn-secondary btn-sm" onclick="showPanel('books')">সব কিতাব</button>
+            </div>
+            <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px">
+              <h3 style="font-size:0.88rem;font-weight:700;margin-bottom:12px">সাম্প্রতিক কিতাব</h3>
+              <div id="dash-recent"></div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="panel-books">
+            <div class="admin-table-wrap">
+              <div class="admin-table-header">
+                <div class="admin-search"><span class="si"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg></span><input type="text" placeholder="কিতাব খুঁজুন..." oninput="renderBooksTable(this.value)"></div>
+                <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
+                  <select id="adm-cat-filter" onchange="renderBooksTable()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:0.8rem;outline:none;font-family:var(--font)"><option value="">সব বিভাগ</option></select>
+                  <button class="btn btn-purple btn-sm" onclick="openAddBook()">+ যোগ করুন</button>
+                </div>
+              </div>
+              <div style="overflow-x:auto">
+                <table><thead><tr><th>কিতাব</th><th>লেখক</th><th>বিভাগ</th><th>Drive</th><th>স্ট্যাটাস</th><th>অ্যাকশন</th></tr></thead>
+                <tbody id="books-tbody"></tbody></table>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="panel-categories">
+            <div class="admin-table-wrap">
+              <div class="admin-table-header">
+                <b style="font-size:0.88rem">বিভাগ তালিকা</b>
+                <button class="btn btn-purple btn-sm" onclick="openAddCat()">+ বিভাগ যোগ করুন</button>
+              </div>
+              <div style="overflow-x:auto">
+                <table><thead><tr><th>আইকন</th><th>নাম</th><th>রঙ</th><th>গ্রুপ</th><th>কিতাব</th><th>অ্যাকশন</th></tr></thead>
+                <tbody id="cat-tbody"></tbody></table>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="panel-banners">
+            <div style="max-width:560px">
+              <div class="adm-card">
+                <h3><svg class="ic" aria-hidden="true"><use href="#i-image"/></svg> ব্যানার যোগ করুন</h3>
+                <div class="form-group"><label>ছবির লিংক (16:9) *</label><input type="url" id="bn-img" placeholder="https://..."><div class="form-hint">ছবির URL দিন — হোমে স্লাইডারে ১৬:৯ অনুপাতে দেখাবে</div></div>
+                <div class="form-group"><label>ক্লিক করলে যে লিংকে যাবে (ঐচ্ছিক)</label><input type="url" id="bn-link" placeholder="https://..."></div>
+                <div style="display:flex;gap:8px">
+                  <button class="btn btn-purple btn-sm" id="bn-save-btn" onclick="saveBanner()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg> যোগ করুন</button>
+                  <button class="btn btn-ghost btn-sm" id="bn-cancel-btn" style="display:none" onclick="cancelBannerEdit()">বাতিল</button>
+                </div>
+              </div>
+              <div class="adm-card">
+                <h3>ব্যানার তালিকা</h3>
+                <div id="bn-list"></div>
+              </div>
+              <div class="adm-card">
+                <h3>স্লাইড বদলের সময়</h3>
+                <div style="display:flex;gap:10px;align-items:flex-end">
+                  <div class="form-group" style="margin-bottom:0;flex:1"><label>কত সেকেন্ড পর পর (২–২০)</label><input type="number" id="bn-sec" min="2" max="20" value="4"></div>
+                  <button class="btn btn-purple btn-sm" onclick="saveBannerSec()">সেভ</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="panel-menu">
+            <div style="max-width:560px">
+              <div class="adm-card">
+                <h3><svg class="ic" aria-hidden="true"><use href="#i-image"/></svg> ড্রয়ারের উপরের ছবি</h3>
+                <div class="form-group"><label>ছবির লিংক</label><input type="url" id="dr-img" placeholder="https://..."><div class="form-hint">ড্রয়ারের হেডারে ব্যাকগ্রাউন্ড হিসেবে দেখাবে। ফাঁকা রাখলে কোনো ছবি থাকবে না।</div></div>
+                <div style="display:flex;gap:8px">
+                  <button class="btn btn-purple btn-sm" onclick="saveDrawerImg()"><svg class="ic" aria-hidden="true"><use href="#i-save"/></svg> সেভ করুন</button>
+                  <button class="btn btn-ghost btn-sm" onclick="clearDrawerImg()">ছবি সরান</button>
+                </div>
+              </div>
+              <div class="adm-card">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+                  <h3 style="margin-bottom:0">ড্রয়ার (☰) মেনু আইটেম</h3>
+                  <div style="display:flex;gap:7px">
+                    <button class="btn btn-ghost btn-sm" onclick="resetMenu()"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg> ডিফল্ট</button>
+                    <button class="btn btn-purple btn-sm" onclick="openAddMenu()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg> নতুন আইটেম</button>
+                  </div>
+                </div>
+                <div class="form-hint" style="margin-bottom:8px">ক্রম বদলাতে ↑↓ চাপুন। "সেটিংস" আইটেমটি মোছা যাবে না — এটাই অ্যাডমিন প্যানেলে ঢোকার পথ।</div>
+                <div id="menu-list"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="panel-contact">
+            <div style="max-width:560px">
+              <div class="adm-card">
+                <h3><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg> যোগাযোগ তথ্য যোগ করুন</h3>
+                <div class="form-group"><label>ধরন</label><select id="ct-type"></select></div>
+                <div class="form-group"><label>নাম/লেবেল (ঐচ্ছিক)</label><input type="text" id="ct-label" placeholder="যেমন: অফিস, সাপোর্ট"></div>
+                <div class="form-group"><label>নম্বর / ইমেইল / লিংক *</label><input type="text" id="ct-value" placeholder="01XXXXXXXXX  /  abc@mail.com  /  https://facebook.com/..."><div class="form-hint">হোয়াটসঅ্যাপ ও টেলিগ্রামে শুধু নম্বর/ইউজারনেম দিলেও চলবে</div></div>
+                <div style="display:flex;gap:8px">
+                  <button class="btn btn-purple btn-sm" id="ct-save-btn" onclick="saveContact()"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg> যোগ করুন</button>
+                  <button class="btn btn-ghost btn-sm" id="ct-cancel-btn" style="display:none" onclick="cancelContactEdit()">বাতিল</button>
+                </div>
+              </div>
+              <div class="adm-card">
+                <h3>যোগাযোগ তালিকা</h3>
+                <div id="ct-list"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="panel-settings">
+            <div style="max-width:500px">
+
+              <!-- Site Settings -->
+              <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:14px">
+                <h3 style="font-size:0.88rem;font-weight:700;margin-bottom:14px"><svg class="ic" aria-hidden="true"><use href="#i-cog"/></svg> সাইট সেটিংস</h3>
+                <div class="form-group"><label>সাইটের নাম</label><input type="text" id="s-name"></div>
+                <div class="form-group"><label>সাবটাইটেল</label><input type="text" id="s-sub"></div>
+                <div class="form-hint" style="margin-bottom:14px">হোমের ব্যানার ছবি এখন বাম পাশের "ব্যানার" মেনু থেকে যোগ করুন (একাধিক দেওয়া যাবে)।</div>
+                <button class="btn btn-purple btn-sm" onclick="saveSettings()">সেটিংস সেভ করুন</button>
+              </div>
+
+              <!-- Security: Username -->
+              <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:14px">
+                <h3 style="font-size:0.88rem;font-weight:700;margin-bottom:14px"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg> অ্যাডমিন ইউজারনেম</h3>
+                <div class="form-group"><label>নতুন ইউজারনেম</label><input type="text" id="s-user" placeholder="নতুন ইউজারনেম"></div>
+                <button class="btn btn-purple btn-sm" onclick="saveUsername()">ইউজারনেম সেভ করুন</button>
+              </div>
+
+              <!-- Security: Password via OTP -->
+              <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:14px">
+                <h3 style="font-size:0.88rem;font-weight:700;margin-bottom:4px"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg> পাসওয়ার্ড পরিবর্তন</h3>
+                <p style="font-size:0.76rem;color:var(--text3);margin-bottom:14px">Email OTP দিয়ে পাসওয়ার্ড পরিবর্তন করুন।</p>
+
+                <!-- Step 1: Email + Current Pass -->
+                <div id="otp-step1">
+                  <div class="form-group"><label>অ্যাডমিন Email</label><input type="email" id="s-email" placeholder="আপনার Gmail দিন"><div class="form-hint">OTP এখানে পাঠানো হবে</div></div>
+                  <div class="form-group"><label>বর্তমান পাসওয়ার্ড</label><input type="password" id="s-curr-pass" placeholder="বর্তমান পাসওয়ার্ড দিন"></div>
+                  <button class="btn btn-purple btn-sm" onclick="sendOTP()"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg> OTP পাঠান</button>
+                </div>
+
+                <!-- Step 2: OTP + New Pass -->
+                <div id="otp-step2" style="display:none">
+                  <div style="background:var(--green-dim);border:1px solid var(--green-border);border-radius:9px;padding:10px;font-size:0.78rem;color:var(--green);margin-bottom:14px">
+                    <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> OTP পাঠানো হয়েছে। Email চেক করুন।
+                  </div>
+                  <div class="form-group"><label>OTP কোড</label><input type="text" id="s-otp" placeholder="6 সংখ্যার কোড" maxlength="6" style="letter-spacing:4px;font-size:1.1rem;text-align:center"></div>
+                  <div class="form-group"><label>নতুন পাসওয়ার্ড</label><input type="password" id="s-new-pass" placeholder="নতুন পাসওয়ার্ড"></div>
+                  <div class="form-group"><label>পাসওয়ার্ড নিশ্চিত করুন</label><input type="password" id="s-conf-pass" placeholder="আবার লিখুন"></div>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <button class="btn btn-purple btn-sm" onclick="verifyOTP()"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> নিশ্চিত করুন</button>
+                    <button class="btn btn-ghost btn-sm" onclick="resetOTPForm()">বাতিল</button>
+                    <button class="btn btn-secondary btn-sm" onclick="sendOTP(true)"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg> নতুন OTP</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Data Management -->
+              <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px">
+                <h3 style="font-size:0.88rem;font-weight:700;margin-bottom:10px"><svg class="ic" aria-hidden="true"><use href="#i-save"/></svg> ডেটা ম্যানেজমেন্ট</h3>
+                <div style="display:flex;gap:7px;flex-wrap:wrap">
+                  <button class="btn btn-secondary btn-sm" onclick="exportData()"><svg class="ic" aria-hidden="true"><use href="#i-upload"/></svg> এক্সপোর্ট</button>
+                  <button class="btn btn-secondary btn-sm" onclick="importData()"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg> ইম্পোর্ট</button>
+                  <button class="btn btn-sm" style="background:rgba(229,62,62,0.1);color:var(--danger);border:1px solid rgba(229,62,62,0.2)" onclick="confirmReset()"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg> ডেমো রিসেট</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOK MODAL -->
+<div class="modal-ov" id="book-modal" onclick="if(event.target===this)closeBookModal()">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="book-modal-ttl">নতুন কিতাব যোগ করুন</div>
+    <div class="form-group"><label>কিতাবের নাম *</label><input type="text" id="b-name" placeholder="যেমন: মাআরিফুল কুরআন"></div>
+    <div class="form-group"><label>লেখক / সংকলক</label><input type="text" id="b-author" placeholder="যেমন: মুফতি মুহাম্মদ শফী"></div>
+    <div class="form-group">
+      <label>বিভাগ *</label>
+      <div class="cat-combo">
+        <select id="b-cat" onchange="onCatSelect(this)"></select>
+        <input type="text" id="b-cat-custom" placeholder="নিজস্ব বিভাগের নাম লিখুন...">
+      </div>
+    </div>
+    <div class="form-group"><label>Google Drive লিংক</label><input type="url" id="b-drive" placeholder="https://drive.google.com/file/d/..."><div class="upload-hint"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg> Drive ফাইলের পাবলিক শেয়ার লিংক দিন।</div></div>
+    <div class="form-group"><label>কভার ছবি URL (ঐচ্ছিক)</label><input type="url" id="b-cover" placeholder="https://..."></div>
+    <div class="form-group"><label>সংক্ষিপ্ত বিবরণ</label><textarea id="b-desc" placeholder="কিতাব সম্পর্কে..."></textarea></div>
+    <div class="form-group"><label>ট্যাগ (কমা দিয়ে আলাদা করুন)</label><input type="text" id="b-tags" placeholder="যেমন: তাফসির, আরবি, বাংলা"></div>
+    <div class="form-row">
+      <div class="form-group"><label>স্ট্যাটাস</label><select id="b-status"><option value="published">প্রকাশিত</option><option value="draft">ড্রাফট</option></select></div>
+      <div class="form-group"><label>ফিচার্ড?</label><select id="b-featured"><option value="no">না</option><option value="yes">হ্যাঁ</option></select></div>
+    </div>
+    <div style="display:flex;gap:9px;margin-top:6px">
+      <button class="btn btn-purple btn-full" onclick="saveBook()"><svg class="ic" aria-hidden="true"><use href="#i-save"/></svg> সেভ করুন</button>
+      <button class="btn btn-ghost" onclick="closeBookModal()" style="min-width:75px">বাতিল</button>
+    </div>
+  </div>
+</div>
+
+<!-- CAT MODAL -->
+<div class="modal-ov" id="cat-modal" onclick="if(event.target===this)closeCatModal()">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="cat-modal-ttl">নতুন বিভাগ</div>
+    <div class="form-group"><label>বিভাগের নাম *</label><input type="text" id="c-name" placeholder="যেমন: কুরআন ই-বুক"></div>
+    <div class="form-row">
+      <div class="form-group"><label>ইমোজি আইকন</label><input type="text" id="c-icon" placeholder="📖" maxlength="4"></div>
+      <div class="form-group"><label>রঙ</label><input type="color" id="c-color" value="#6c4fcf"></div>
+    </div>
+    <div class="form-group"><label>গ্রুপ (হোমে একসাথে দেখাবে)</label><input type="text" id="c-group" placeholder="যেমন: ইসলামিক ই-বুক"></div>
+    <div class="form-group"><label>কভার ছবি URL (ঐচ্ছিক)</label><input type="url" id="c-cover" placeholder="https://..."><div class="form-hint">বিভাগের আইকনের জায়গায় ছবি দেখাবে</div></div>
+    <div style="display:flex;gap:9px;margin-top:6px">
+      <button class="btn btn-purple btn-full" onclick="saveCat()"><svg class="ic" aria-hidden="true"><use href="#i-save"/></svg> সেভ করুন</button>
+      <button class="btn btn-ghost" onclick="closeCatModal()" style="min-width:75px">বাতিল</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM -->
+<div class="confirm-ov" id="confirm-ov">
+  <div class="confirm-box">
+    <h3 id="confirm-ttl">নিশ্চিত করুন</h3>
+    <p id="confirm-msg"></p>
+    <div class="confirm-actions">
+      <button class="btn btn-ghost btn-sm" onclick="closeConfirm()">বাতিল</button>
+      <button class="btn btn-danger btn-sm" id="confirm-ok">ঠিক আছে</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-c"></div>
+
+<script>
+/* ========== DEFAULT DATA ========== */
+const DC = [
+  {id:'c-quran',name:'কুরআন ই-বুক',icon:'📖',color:'#1a7a5e',group:'কুরআন ই-বুক'},
+  {id:'c-surah',name:'সূরা সমূহ',icon:'📄',color:'#1a7a5e',group:'কুরআন ই-বুক'},
+  {id:'c-para',name:'পারা সমূহ',icon:'📊',color:'#1a7a5e',group:'কুরআন ই-বুক'},
+  {id:'c-tbn',name:'তাফসির বাংলা',icon:'🔖',color:'#b8860b',group:'তাফসির ই-বুক'},
+  {id:'c-tar',name:'তাফসির আরবি',icon:'🔖',color:'#b8860b',group:'তাফসির ই-বুক'},
+  {id:'c-ten',name:'তাফসির ইংরেজী',icon:'🔖',color:'#b8860b',group:'তাফসির ই-বুক'},
+  {id:'c-hbn',name:'হাদিস বাংলা',icon:'📕',color:'#3b5de7',group:'হাদিস ই-বুক'},
+  {id:'c-har',name:'হাদিস আরবি',icon:'📕',color:'#3b5de7',group:'হাদিস ই-বুক'},
+  {id:'c-hen',name:'হাদিস ইংরেজী',icon:'📕',color:'#3b5de7',group:'হাদিস ই-বুক'},
+  {id:'c-isl',name:'ইসলামিক বই',icon:'📚',color:'#6c4fcf',group:'ইসলামিক ই-বুক'},
+  {id:'c-khu',name:'খুতবা কিতাব',icon:'📈',color:'#6c4fcf',group:'ইসলামিক ই-বুক'},
+  {id:'c-sir',name:'সিরাত বই',icon:'🌐',color:'#6c4fcf',group:'ইসলামিক ই-বুক'},
+  {id:'c-mod',name:'আধুনিক বই',icon:'👁️',color:'#6c4fcf',group:'ইসলামিক ই-বুক'},
+  {id:'c-lan',name:'ভাষা শিক্ষা',icon:'🌍',color:'#6c4fcf',group:'ইসলামিক ই-বুক'},
+  {id:'c-nov',name:'উপন্যাস',icon:'📗',color:'#6c4fcf',group:'ইসলামিক ই-বুক'},
+  {id:'c-qmt',name:'কওমি মতন',icon:'📔',color:'#1a7a5e',group:'দরিস ই-বুক'},
+  {id:'c-qbn',name:'কওমি সরা বাংলা',icon:'📔',color:'#1a7a5e',group:'দরিস ই-বুক'},
+  {id:'c-qar',name:'কওমি সরা আরবি',icon:'📔',color:'#1a7a5e',group:'দরিস ই-বুক'},
+  {id:'c-sug',name:'কওমি সাজেশন',icon:'🎓',color:'#1a7a5e',group:'দরিস ই-বুক'},
+  {id:'c-mad',name:'মাদানি বই',icon:'🕌',color:'#1a7a5e',group:'দরিস ই-বুক'},
+  {id:'c-ali',name:'আলিয়া বই',icon:'🎓',color:'#1a7a5e',group:'দরিস ই-বুক'},
+];
+const DB=[
+  {id:'b-1',name:'মাআরিফুল কুরআন',author:'মুফতি মুহাম্মদ শফী',cat:'c-tbn',driveUrl:'',cover:'',desc:'বাংলা ভাষায় কুরআনের পূর্ণ তাফসির।',tags:['তাফসির','বাংলা'],status:'published',featured:true,createdAt:Date.now()-86400e3*10},
+  {id:'b-2',name:'বুখারি শরীফ (বাংলা)',author:'ইমাম বুখারি রহ.',cat:'c-hbn',driveUrl:'',cover:'',desc:'সহিহ বুখারির বাংলা অনুবাদ।',tags:['হাদিস','বুখারি'],status:'published',featured:true,createdAt:Date.now()-86400e3*8},
+  {id:'b-3',name:'সিরাতুন নবী ﷺ',author:'শিবলি নুমানি',cat:'c-sir',driveUrl:'',cover:'',desc:'নবী মুহাম্মদ ﷺ-এর জীবনী।',tags:['সিরাত','জীবনী'],status:'published',featured:false,createdAt:Date.now()-86400e3*5},
+  {id:'b-4',name:'কুরআনুল কারীম',author:'',cat:'c-quran',driveUrl:'',cover:'',desc:'আরবি কুরআন শরীফের ই-বুক।',tags:['কুরআন','আরবি'],status:'published',featured:true,createdAt:Date.now()-86400e3*3},
+];
+
+/* ========== STATE ========== */
+let S={
+  books:[],cats:[],
+  settings:{siteName:'কিতাব ঘর',siteSub:'আপনার কওমি লাইব্রেরি',adminUser:'admin',adminPass:'admin123',bannerUrl:'https://i.postimg.cc/cC1WpNgN/43b81e2e6095bc1d0b9fe0c23ccc51b4.jpg'},
+  currentPage:'home',currentBook:null,
+  editBookId:null,editCatId:null,
+  favorites:[],
+  pageStack:[],
+  banners:[],contact:[],menu:null,bannerSec:4,drawerImg:'',
+};
+let confirmCb=null;
+
+/* ========== JSONBIN CONFIG ========== */
+const JB_KEY='$2a$10$l4fAmwqKIzWDsieEVKTDXOAoQdCvUZ8cG.GUO0nNVhJY9oDjoZ5K.';
+const JB_BIN='6ab4cea0ffd5d16053296f24'; // v3
+const JB_URL='https://api.jsonbin.io/v3/b/'+JB_BIN;
+let _saveTimer=null;
+
+/* ========== LOCAL STORAGE ========== */
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const ld=(k)=>{try{return JSON.parse(localStorage.getItem(k))||null}catch(e){return null}};
+const ps=()=>sv('kg_settings',S.settings);
+const pf=()=>sv('kg_favs',S.favorites);
+
+/* ========== JSONBIN: READ ========== */
+async function loadFromCloud(){
+  try{
+    const r=await fetch(JB_URL+'/latest',{
+      headers:{
+        'X-Master-Key':JB_KEY,
+        'X-Bin-Meta':'false'
+      }
+    });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    if(d&&Array.isArray(d.books)) S.books=d.books;
+    if(d&&Array.isArray(d.cats)) S.cats=d.cats;
+    if(d&&d.site){applySite(d.site);menuW();sv('kg_site',siteData());}
+    sv('kg_books',S.books);
+    sv('kg_cats',S.cats);
+    return true;
+  }catch(e){
+    console.warn('Cloud load failed:',e);
+    return false;
+  }
+}
+
+/* ========== JSONBIN: WRITE (debounced 800ms) ========== */
+function pb(){
+  sv('kg_books',S.books);
+  schedSave();
+}
+function pc(){
+  sv('kg_cats',S.cats);
+  schedSave();
+}
+function schedSave(){
+  if(_saveTimer) clearTimeout(_saveTimer);
+  _saveTimer=setTimeout(doSave,800);
+}
+async function doSave(){
+  const payload={books:S.books,cats:S.cats,site:siteData()};
+  try{
+    const r=await fetch(JB_URL,{
+      method:'PUT',
+      headers:{
+        'Content-Type':'application/json',
+        'X-Master-Key':JB_KEY
+      },
+      body:JSON.stringify(payload)
+    });
+    if(!r.ok){
+      const err=await r.text();
+      throw new Error('HTTP '+r.status+': '+err);
+    }
+    toast('ক্লাউডে সেভ হয়েছে ✓');
+  }catch(e){
+    console.warn('Cloud save failed:',e.message);
+    toast('সেভ ব্যর্থ: '+e.message);
+  }
+}
+
+function initStorage(){
+  const sv2=ld('kg_settings');if(sv2)S.settings={...S.settings,...sv2};
+  S.favorites=ld('kg_favs')||[];
+  S.books=ld('kg_books')||DB.map(b=>({...b}));
+  S.cats=ld('kg_cats')||DC.map(c=>({...c}));
+  applySite(ld('kg_site'));menuW();
+}
+
+/* ========== NAVIGATION (FIXED) ========== */
+function goPage(page,data={}){
+  // push current to stack
+  S.pageStack.push({page:S.currentPage, data:{}});
+  _show(page,data);
+}
+function goBack(){
+  if(S.pageStack.length===0){_show('home');return;}
+  const prev=S.pageStack.pop();
+  _show(prev.page,prev.data||{});
+}
+function _show(page,data={}){
+  document.querySelectorAll('#public-site .page').forEach(p=>p.classList.remove('active'));
+  S.currentPage=page;
+  const el=document.getElementById('page-'+page);
+  if(el)el.classList.add('active');
+  window.scrollTo(0,0);
+  if(page==='home')renderHome();
+  else if(page==='all-books')renderAllBooks();
+  else if(page==='category')renderCatPage(data.catId);
+  else if(page==='book-detail')renderBookDetail(data.bookId);
+  else if(page==='favorites')renderFavorites();
+  else if(page==='search'){setTimeout(()=>document.getElementById('srch-inp')?.focus(),150);}
+}
+
+/* ========== PRAYER TIMES (Real API) ========== */
+const MONTHS_BN=['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
+const DAYS_BN=['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
+const WAQT_BN={Fajr:'ফজর',Sunrise:'সূর্যোদয়',Dhuhr:'যুহর',Asr:'আসর',Sunset:'সূর্যাস্ত',Maghrib:'মাগরিব',Isha:'ইশা'};
+const WAQT_ORDER=['Fajr','Dhuhr','Asr','Maghrib','Isha'];
+
+function bn(s){
+  return (s+'').replace(/[0-9]/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+}
+function fmtDate(){
+  const n=new Date();
+  document.getElementById('bangla-date-txt').textContent=bn(n.getDate())+' '+MONTHS_BN[n.getMonth()]+', '+bn(n.getFullYear())+', '+DAYS_BN[n.getDay()];
+}
+
+async function loadPrayerTimes(){
+  fmtDate();
+  try{
+    const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{timeout:5000}));
+    const lat=pos.coords.latitude,lon=pos.coords.longitude;
+    const now=new Date();
+    const d=`${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()}`;
+    const r=await fetch(`https://api.aladhan.com/v1/timings/${d}?latitude=${lat}&longitude=${lon}&method=1`);
+    const j=await r.json();
+    if(j.code===200)applyTimes(j.data.timings,j.data.date);
+  }catch(e){
+    // fallback: try with Dhaka
+    try{
+      const now=new Date();
+      const d=`${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()}`;
+      const r=await fetch(`https://api.aladhan.com/v1/timings/${d}?latitude=23.8103&longitude=90.4125&method=1`);
+      const j=await r.json();
+      if(j.code===200)applyTimes(j.data.timings,j.data.date);
+    }catch(e2){staticTimes();}
+  }
+}
+
+function applyTimes(timings,dateObj){
+  // Hijri
+  const h=dateObj?.hijri;
+  if(h){
+    document.getElementById('hijri-txt').textContent=`${bn(h.day)} ${h.month?.ar||h.month?.en}, ${bn(h.year)} হি.`;
+  }
+  // Find current waqt
+  const now=new Date();
+  const nowMin=now.getHours()*60+now.getMinutes();
+  function timeToMin(t){const[hh,mm]=t.split(':');return parseInt(hh)*60+parseInt(mm);}
+  let curIdx=0;
+  for(let i=0;i<WAQT_ORDER.length;i++){
+    const wt=WAQT_ORDER[i];
+    if(timeToMin(timings[wt])<=nowMin)curIdx=i;
+  }
+  const curW=WAQT_ORDER[curIdx];
+  const nextW=WAQT_ORDER[(curIdx+1)%WAQT_ORDER.length];
+  const nextMin=timeToMin(timings[nextW]);
+  let diff=nextMin-nowMin;
+  if(diff<0)diff+=1440;
+  const dh=Math.floor(diff/60),dm=diff%60;
+  const t12=h12(timings[curW]);
+  document.getElementById('current-waqt').textContent=`${WAQT_BN[curW]||curW} ${t12}`;
+  document.getElementById('next-waqt-txt').textContent=`পরবর্তী নামাজ ${dh?bn(dh)+' ঘণ্টা ':''}${bn(dm)} মিনিট পর`;
+  // Prayer row
+  document.getElementById('prayer-row').innerHTML=WAQT_ORDER.map((w,i)=>`
+    <div class="prayer-item${i===curIdx?' ap':''}">
+      <div class="pname">${WAQT_BN[w]||w}</div>
+      <div class="ptime">${h12(timings[w])}</div>
+    </div>`).join('');
+}
+
+function h12(t){
+  if(!t)return'--';
+  let[hh,mm]=t.split(':').map(Number);
+  const ap=hh>=12?'PM':'AM';
+  hh=hh%12||12;
+  return `${bn(String(hh).padStart(2,'0'))}:${bn(String(mm).padStart(2,'0'))} ${ap}`;
+}
+
+function staticTimes(){
+  document.getElementById('hijri-txt').textContent='লোড হয়নি';
+  const prayers=[{n:'ফজর',t:'০৪:৩১ AM'},{n:'যুহর',t:'১১:৫৩ AM'},{n:'আসর',t:'০৪:১৪ PM'},{n:'মাগরিব',t:'০৫:৫৭ PM'},{n:'ইশা',t:'০৭:১১ PM'}];
+  document.getElementById('current-waqt').textContent='মাগরিব ০৫:৫৭ PM';
+  document.getElementById('next-waqt-txt').textContent='ইন্টারনেট সংযোগ নেই';
+  document.getElementById('prayer-row').innerHTML=prayers.map((p,i)=>`<div class="prayer-item${i===3?' ap':''}"><div class="pname">${p.n}</div><div class="ptime">${p.t}</div></div>`).join('');
+}
+
+// Update current waqt every minute
+
+/* ========== HOME ========== */
+function renderHome(){
+  document.getElementById('site-title').textContent=S.settings.siteName||'কিতাব ঘর';
+  document.getElementById('site-subtitle').textContent=S.settings.siteSub||'আপনার কওমি লাইব্রেরি';
+  renderBanners();
+  renderDrawer();
+  renderHomeSections();
+}
+
+function renderHomeSections(){
+  const groups={};
+  S.cats.forEach(c=>{const g=c.group||c.name;if(!groups[g])groups[g]=[];groups[g].push(c);});
+  let html='';
+  Object.entries(groups).forEach(([g,cats])=>{
+    html+=`<div class="home-section">
+      <div class="section-header">
+        <div class="section-title"><span class="section-accent" style="background:${cats[0]?.color||'#6c4fcf'}"></span>${g}</div>
+        <span class="count-badge">${cats.length}টি</span>
+      </div>
+      <div class="cat-grid">${cats.map(c=>`
+        <div class="cat-card" onclick="goPage('category',{catId:'${c.id}'})">
+          <div class="cat-icon-wrap" style="background:${rgba(c.color,0.12)};overflow:hidden;padding:0">${c.cover?`<img src="${c.cover}" style="width:100%;height:100%;object-fit:cover;border-radius:50%" onerror="this.style.display='none'">`:c.icon||'📖'}</div>
+          <div class="cat-name">${c.name}</div>
+        </div>`).join('')}
+      </div>
+    </div><div class="sec-divider"></div>`;
+  });
+  const feat=S.books.filter(b=>b.status==='published'&&b.featured);
+  if(feat.length){
+    html+=`<div class="home-section">
+      <div class="section-header"><div class="section-title"><span class="section-accent" style="background:var(--gold)"></span>ফিচার্ড কিতাব</div></div>
+      <div class="book-list">${feat.map(bookCard).join('')}</div>
+    </div><div class="sec-divider"></div>`;
+  }
+  document.getElementById('home-sections').innerHTML=html;
+}
+
+function rgba(hex,a){
+  try{const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return `rgba(${r},${g},${b},${a})`;}
+  catch(e){return 'rgba(108,79,207,0.12)';}
+}
+
+/* ========== BOOK CARD ========== */
+function bookCard(book){
+  const cat=S.cats.find(c=>c.id===book.cat);
+  const tags=(book.tags||[]).slice(0,2);
+  return `<div class="book-card" onclick="goPage('book-detail',{bookId:'${book.id}'})">
+    <div class="book-thumb">${book.cover?`<img src="${book.cover}" onerror="this.parentElement.textContent='📖'">`:cat?.icon||'📖'}</div>
+    <div class="book-info">
+      <div class="book-title">${book.name}</div>
+      <div class="book-author">${book.author||'অজানা লেখক'}</div>
+      <div class="book-tags">
+        ${cat?`<span class="book-tag tag-green">${cat.name}</span>`:''}
+        ${tags.map(t=>`<span class="book-tag tag-purple">${t}</span>`).join('')}
+      </div>
+    </div>
+    <button class="book-read-btn" aria-label="পড়ুন">${ico('play','fill')}</button>
+  </div>`;
+}
+
+/* ========== ALL BOOKS ========== */
+function renderAllBooks(q=''){
+  let books=S.books.filter(b=>b.status==='published');
+  if(q)books=books.filter(b=>b.name.includes(q)||b.author?.includes(q)||(b.tags||[]).some(t=>t.includes(q)));
+  document.getElementById('all-books-list').innerHTML=books.length?books.map(bookCard).join(''):'<div style="text-align:center;padding:40px;color:var(--text3)">কোনো কিতাব পাওয়া যায়নি</div>';
+}
+
+/* ========== CATEGORY PAGE ========== */
+function renderCatPage(catId){
+  S._lastCatId=catId;
+  const cat=S.cats.find(c=>c.id===catId);
+  if(!cat)return;
+  document.getElementById('cat-page-title').textContent=cat.name;
+  const books=S.books.filter(b=>b.cat===catId&&b.status==='published');
+  document.getElementById('cat-books-list').innerHTML=books.length?books.map(bookCard).join(''):'<div style="text-align:center;padding:40px;color:var(--text3)">এই বিভাগে কোনো কিতাব নেই</div>';
+}
+
+/* ========== BOOK DETAIL ========== */
+function renderBookDetail(bookId){
+  const book=S.books.find(b=>b.id===bookId);
+  if(!book)return;
+  S.currentBook=book;
+  const cat=S.cats.find(c=>c.id===book.cat);
+  document.getElementById('reader-title').textContent=book.name;
+  document.getElementById('reader-cover').innerHTML=book.cover?`<img src="${book.cover}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.textContent='📖'">`:cat?.icon||'📖';
+  document.getElementById('reader-book-title').textContent=book.name;
+  document.getElementById('reader-meta').innerHTML=
+    (cat?`<span class="book-tag tag-green">${cat.name}</span>`:'')+
+    (book.author?`<span class="book-tag tag-purple">${book.author}</span>`:'')+
+    (book.tags||[]).map(t=>`<span class="book-tag tag-gold">${t}</span>`).join('');
+  document.getElementById('reader-desc').textContent=book.desc||'';
+  updateFavBtn(book.id);
+  const iframe=document.getElementById('drive-iframe');
+  const noLink=document.getElementById('reader-no-link');
+  const ob=document.getElementById('open-drive-btn'),db=document.getElementById('dl-btn');
+  if(book.driveUrl){
+    iframe.src=embedUrl(book.driveUrl);iframe.style.display='block';noLink.style.display='none';
+    ob.style.display='inline-flex';db.style.display='inline-flex';
+  }else{
+    iframe.style.display='none';noLink.style.display='block';ob.style.display='none';db.style.display='none';
+  }
+}
+
+function embedUrl(url){
+  const m1=url.match(/\/file\/d\/([^\/\?]+)/);
+  const m2=url.match(/id=([^&]+)/);
+  if(m1)return`https://drive.google.com/file/d/${m1[1]}/preview`;
+  if(m2)return`https://drive.google.com/file/d/${m2[1]}/preview`;
+  if(url.includes('/preview'))return url;
+  return url;
+}
+function openDrive(){if(S.currentBook?.driveUrl)window.open(S.currentBook.driveUrl,'_blank');}
+function dlBook(){
+  if(!S.currentBook?.driveUrl)return;
+  let url=S.currentBook.driveUrl;
+  const m=url.match(/\/file\/d\/([^\/\?]+)/);
+  if(m)url=`https://drive.google.com/uc?export=download&id=${m[1]}`;
+  window.open(url,'_blank');toast('ডাউনলোড শুরু হচ্ছে...');
+}
+
+/* ========== FAVORITES ========== */
+function toggleFav(){
+  if(!S.currentBook)return;
+  const id=S.currentBook.id,idx=S.favorites.indexOf(id);
+  if(idx===-1){S.favorites.push(id);toast('পছন্দে যোগ হয়েছে');}
+  else{S.favorites.splice(idx,1);toast('পছন্দ থেকে সরানো হয়েছে');}
+  pf();updateFavBtn(id);
+}
+function updateFavBtn(id){
+  const b=document.getElementById('fav-btn');
+  if(b){const on=S.favorites.includes(id);b.classList.toggle('fav-on',on);b.innerHTML=ico('heart',on?'fill':'');}
+}
+function renderFavorites(){
+  const books=S.books.filter(b=>S.favorites.includes(b.id));
+  document.getElementById('fav-list').innerHTML=books.length?books.map(bookCard).join(''):'';
+  document.getElementById('fav-empty').style.display=books.length?'none':'block';
+}
+
+/* ========== SEARCH ========== */
+function runSearch(q=''){
+  const books=S.books.filter(b=>b.status==='published'&&(!q||b.name.includes(q)||b.author?.includes(q)||(b.tags||[]).some(t=>t.includes(q))));
+  document.getElementById('srch-list').innerHTML=books.length?books.map(bookCard).join(''):'';
+  document.getElementById('srch-empty').style.display=(!books.length&&q)?'block':'none';
+}
+
+/* ========== ADMIN ========== */
+function goAdmin(){ window.location.href='admin.html'; }
+  else{document.getElementById('adm-login').style.display='flex';document.getElementById('adm-dash').style.display='none';}
+}
+function exitAdmin(){
+  document.getElementById('admin-wrap').classList.remove('active');
+  document.getElementById('public-site').style.display='block';
+  _show('home');
+}
+function doLogin(){
+  const u=document.getElementById('adm-u').value.trim(),p=document.getElementById('adm-p').value.trim();
+  const err=document.getElementById('login-err');
+  if(u===S.settings.adminUser&&p===S.settings.adminPass){
+    sv('kg_sess',1);err.style.display='none';showAdmDash();
+  }else{err.style.display='block';}
+}
+function doLogout(){
+  localStorage.removeItem('kg_sess');
+  document.getElementById('adm-login').style.display='flex';
+  document.getElementById('adm-dash').style.display='none';
+}
+function showAdmDash(){
+  document.getElementById('adm-login').style.display='none';
+  document.getElementById('adm-dash').style.display='flex';
+  renderDashboard();
+}
+function showPanel(name){
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  document.querySelectorAll('.admin-nav-item').forEach(n=>n.classList.toggle('active',n.dataset.panel===name));
+  const titles={dashboard:'ড্যাশবোর্ড',books:'কিতাব পরিচালনা',categories:'বিভাগ',banners:'ব্যানার',menu:'ড্রয়ার মেনু',contact:'যোগাযোগ তথ্য',settings:'সেটিংস'};
+  document.getElementById('adm-top-title').textContent=titles[name]||name;
+  if(name==='dashboard')renderDashboard();
+  else if(name==='books')renderBooksTable();
+  else if(name==='categories')renderCatTable();
+  else if(name==='banners')renderBannerAdmin();
+  else if(name==='menu'){renderMenuAdmin();document.getElementById('dr-img').value=S.drawerImg||'';}
+  else if(name==='contact')renderContactAdmin();
+  else if(name==='settings')loadSettings();
+}
+function renderDashboard(){
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-num" style="color:var(--purple)">${S.books.length}</div><div class="stat-label">মোট কিতাব</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--green)">${S.books.filter(b=>b.status==='published').length}</div><div class="stat-label">প্রকাশিত</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--gold)">${S.cats.length}</div><div class="stat-label">বিভাগ</div></div>
+    <div class="stat-card"><div class="stat-num" style="color:var(--danger)">${S.favorites.length}</div><div class="stat-label">পছন্দ</div></div>`;
+  const recent=[...S.books].sort((a,b)=>b.createdAt-a.createdAt).slice(0,5);
+  document.getElementById('dash-recent').innerHTML=recent.map(b=>{
+    const cat=S.cats.find(c=>c.id===b.cat);
+    return`<div style="display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--border)">
+      <div style="width:30px;height:30px;border-radius:7px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:1rem">${cat?.icon||'📖'}</div>
+      <div style="flex:1;min-width:0"><div style="font-size:0.82rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.name}</div><div style="font-size:0.7rem;color:var(--text3)">${b.author||'অজানা'}</div></div>
+      <span class="status-dot ${b.status==='published'?'status-pub':'status-draft'}">${b.status==='published'?'প্রকাশিত':'ড্রাফট'}</span>
+    </div>`;}).join('');
+}
+function renderBooksTable(q=''){
+  const cf=document.getElementById('adm-cat-filter');
+  cf.innerHTML='<option value="">সব বিভাগ</option>'+S.cats.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+  const selCat=cf.value;
+  let books=S.books;
+  if(q)books=books.filter(b=>b.name.includes(q)||b.author?.includes(q));
+  if(selCat)books=books.filter(b=>b.cat===selCat);
+  document.getElementById('books-tbody').innerHTML=books.map(b=>{
+    const cat=S.cats.find(c=>c.id===b.cat);
+    return`<tr>
+      <td><div style="display:flex;align-items:center;gap:7px">
+        <div style="width:28px;height:28px;border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:0.95rem">${cat?.icon||'📖'}</div>
+        <div><div style="font-weight:600;font-size:0.8rem">${b.name}</div>${b.featured?'<span style="font-size:0.62rem;color:var(--gold)">'+ico('star','fill')+' ফিচার্ড</span>':''}</div>
+      </div></td>
+      <td style="color:var(--text2)">${b.author||'-'}</td>
+      <td>${cat?`<span style="font-size:0.7rem;padding:2px 6px;border-radius:5px;background:var(--bg3)">${cat.name}</span>`:'-'}</td>
+      <td><span style="font-size:0.7rem;color:${b.driveUrl?'var(--green)':'var(--text3)'}">${b.driveUrl?'✓ আছে':'✗ নেই'}</span></td>
+      <td><span class="status-dot ${b.status==='published'?'status-pub':'status-draft'}">${b.status==='published'?'প্রকাশিত':'ড্রাফট'}</span></td>
+      <td class="td-actions">
+        <button class="btn btn-secondary btn-xs" onclick="openEditBook('${b.id}')" aria-label="এডিট">${ico('edit')}</button>
+        <button class="btn btn-xs" style="background:rgba(229,62,62,0.1);color:var(--danger);border:1px solid rgba(229,62,62,0.2)" onclick="confirmDelBook('${b.id}')" aria-label="মুছুন">${ico('trash')}</button>
+      </td>
+    </tr>`;}).join('')||'<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--text3)">কোনো কিতাব নেই</td></tr>';
+}
+
+/* ========== BOOK MODAL ========== */
+function openAddBook(){
+  S.editBookId=null;
+  document.getElementById('book-modal-ttl').textContent='নতুন কিতাব যোগ করুন';
+  ['b-name','b-author','b-drive','b-cover','b-desc','b-tags'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('b-status').value='published';
+  document.getElementById('b-featured').value='no';
+  fillCatSelect('');
+  document.getElementById('book-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function openEditBook(id){
+  const b=S.books.find(x=>x.id===id);if(!b)return;
+  S.editBookId=id;
+  document.getElementById('book-modal-ttl').textContent='কিতাব সম্পাদনা করুন';
+  document.getElementById('b-name').value=b.name;
+  document.getElementById('b-author').value=b.author||'';
+  document.getElementById('b-drive').value=b.driveUrl||'';
+  document.getElementById('b-cover').value=b.cover||'';
+  document.getElementById('b-desc').value=b.desc||'';
+  document.getElementById('b-tags').value=(b.tags||[]).join(', ');
+  document.getElementById('b-status').value=b.status||'published';
+  document.getElementById('b-featured').value=b.featured?'yes':'no';
+  fillCatSelect(b.cat);
+  document.getElementById('book-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function fillCatSelect(selCat){
+  const sel=document.getElementById('b-cat');
+  sel.innerHTML=S.cats.map(c=>`<option value="${c.id}"${c.id===selCat?' selected':''}>${c.name}</option>`).join('')
+    +'<option value="__custom__">নিজস্ব বিভাগ লিখুন...</option>';
+  const inp=document.getElementById('b-cat-custom');
+  inp.classList.remove('show');inp.value='';
+  if(selCat&&!S.cats.find(c=>c.id===selCat)){inp.classList.add('show');}
+}
+function onCatSelect(sel){
+  const inp=document.getElementById('b-cat-custom');
+  if(sel.value==='__custom__'){inp.classList.add('show');inp.focus();}
+  else{inp.classList.remove('show');inp.value='';}
+}
+function saveBook(){
+  const name=document.getElementById('b-name').value.trim();
+  if(!name){toast('কিতাবের নাম দিন','e');return;}
+  let catVal=document.getElementById('b-cat').value;
+  let customCat=document.getElementById('b-cat-custom').value.trim();
+  // If custom, create new cat
+  if(catVal==='__custom__'&&customCat){
+    const newCat={id:'c-'+Date.now(),name:customCat,icon:'📖',color:'#6c4fcf',group:customCat};
+    S.cats.push(newCat);pc();catVal=newCat.id;
+  }else if(catVal==='__custom__'&&!customCat){toast('বিভাগের নাম লিখুন','e');return;}
+  const book={
+    id:S.editBookId||'b-'+Date.now(),
+    name,author:document.getElementById('b-author').value.trim(),
+    cat:catVal,driveUrl:document.getElementById('b-drive').value.trim(),
+    cover:document.getElementById('b-cover').value.trim(),
+    desc:document.getElementById('b-desc').value.trim(),
+    tags:document.getElementById('b-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    status:document.getElementById('b-status').value,
+    featured:document.getElementById('b-featured').value==='yes',
+    createdAt:S.editBookId?(S.books.find(b=>b.id===S.editBookId)?.createdAt||Date.now()):Date.now(),
+  };
+  if(S.editBookId){const i=S.books.findIndex(b=>b.id===S.editBookId);if(i!==-1)S.books[i]=book;toast('কিতাব আপডেট হয়েছে ✓');}
+  else{S.books.unshift(book);toast('নতুন কিতাব যোগ হয়েছে ✓');}
+  pb();closeBookModal();renderBooksTable();renderDashboard();
+}
+function confirmDelBook(id){
+  const b=S.books.find(x=>x.id===id);
+  openConfirm(`"${b?.name}" মুছে ফেলবেন?`,'পুনরায় ফিরিয়ে আনা যাবে না।',()=>{
+    S.books=S.books.filter(x=>x.id!==id);pb();renderBooksTable();renderDashboard();toast('মুছে ফেলা হয়েছে');
+  });
+}
+function closeBookModal(){document.getElementById('book-modal').classList.remove('open');document.body.style.overflow='';}
+
+/* ========== CAT MODAL ========== */
+function openAddCat(){
+  S.editCatId=null;
+  document.getElementById('cat-modal-ttl').textContent='নতুন বিভাগ';
+  document.getElementById('c-name').value='';document.getElementById('c-icon').value='📖';
+  document.getElementById('c-color').value='#6c4fcf';document.getElementById('c-group').value='';document.getElementById('c-cover').value='';
+  document.getElementById('cat-modal').classList.add('open');document.body.style.overflow='hidden';
+}
+function openEditCat(id){
+  const c=S.cats.find(x=>x.id===id);if(!c)return;S.editCatId=id;
+  document.getElementById('cat-modal-ttl').textContent='বিভাগ সম্পাদনা';
+  document.getElementById('c-name').value=c.name;document.getElementById('c-icon').value=c.icon||'📖';
+  document.getElementById('c-color').value=c.color||'#6c4fcf';document.getElementById('c-group').value=c.group||'';document.getElementById('c-cover').value=c.cover||'';
+  document.getElementById('cat-modal').classList.add('open');document.body.style.overflow='hidden';
+}
+function saveCat(){
+  const name=document.getElementById('c-name').value.trim();if(!name){toast('নাম দিন','e');return;}
+  const cat={id:S.editCatId||'c-'+Date.now(),name,icon:document.getElementById('c-icon').value||'📖',color:document.getElementById('c-color').value||'#6c4fcf',group:document.getElementById('c-group').value.trim()||name,cover:document.getElementById('c-cover').value.trim()};
+  if(S.editCatId){const i=S.cats.findIndex(c=>c.id===S.editCatId);if(i!==-1)S.cats[i]=cat;toast('বিভাগ আপডেট হয়েছে ✓');}
+  else{S.cats.push(cat);toast('নতুন বিভাগ যোগ হয়েছে ✓');}
+  pc();closeCatModal();renderCatTable();
+}
+function renderCatTable(){
+  document.getElementById('cat-tbody').innerHTML=S.cats.map(c=>{
+    const cnt=S.books.filter(b=>b.cat===c.id).length;
+    return`<tr>
+      <td><div style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;background:${rgba(c.color,0.12)}">${c.icon||'📖'}</div></td>
+      <td style="font-weight:600">${c.name}</td>
+      <td><div style="width:18px;height:18px;border-radius:50%;background:${c.color}"></div></td>
+      <td style="color:var(--text2);font-size:0.76rem">${c.group||'-'}</td>
+      <td>${cnt}</td>
+      <td class="td-actions">
+        <button class="btn btn-secondary btn-xs" onclick="openEditCat('${c.id}')" aria-label="এডিট">${ico('edit')}</button>
+        <button class="btn btn-xs" style="background:rgba(229,62,62,0.1);color:var(--danger);border:1px solid rgba(229,62,62,0.2)" onclick="confirmDelCat('${c.id}')" aria-label="মুছুন">${ico('trash')}</button>
+      </td>
+    </tr>`;}).join('');
+}
+function confirmDelCat(id){
+  openConfirm('বিভাগ মুছে ফেলবেন?','এই বিভাগের কিতাবগুলো অনির্ধারিত হবে।',()=>{
+    S.cats=S.cats.filter(c=>c.id!==id);S.books.forEach(b=>{if(b.cat===id)b.cat='';});
+    pc();pb();renderCatTable();toast('বিভাগ মুছে ফেলা হয়েছে');
+  });
+}
+function closeCatModal(){document.getElementById('cat-modal').classList.remove('open');document.body.style.overflow='';}
+
+/* ========== SETTINGS ========== */
+const EJS_SERVICE='service_zhw6cvf';
+const EJS_TEMPLATE='template_u5hfgjc';
+const EJS_PUBKEY='Fq5M316H1oBkLsP0t';
+let _otp=null,_otpExp=0;
+
+function loadSettings(){
+  document.getElementById('s-name').value=S.settings.siteName||'';
+  document.getElementById('s-sub').value=S.settings.siteSub||'';
+  document.getElementById('s-user').value=S.settings.adminUser||'';
+  if(S.settings.adminEmail)document.getElementById('s-email').value=S.settings.adminEmail;
+}
+function saveSettings(){
+  S.settings.siteName=document.getElementById('s-name').value.trim()||'কিতাব ঘর';
+  S.settings.siteSub=document.getElementById('s-sub').value.trim();
+  ps();psite();renderDrawer();
+  toast('সাইট সেটিংস সেভ হয়েছে ✓');
+}
+function saveUsername(){
+  const u=document.getElementById('s-user').value.trim();
+  if(!u){toast('ইউজারনেম দিন','e');return;}
+  S.settings.adminUser=u;ps();toast('ইউজারনেম সেভ হয়েছে ✓');
+}
+
+// OTP flow
+async function sendOTP(resend=false){
+  const email=document.getElementById('s-email').value.trim();
+  const currPass=document.getElementById('s-curr-pass').value.trim();
+  if(!email){toast('Email দিন','e');return;}
+  if(!currPass){toast('বর্তমান পাসওয়ার্ড দিন','e');return;}
+  if(currPass!==S.settings.adminPass){toast('বর্তমান পাসওয়ার্ড ভুল','e');return;}
+
+  // Generate 6-digit OTP
+  _otp=String(Math.floor(100000+Math.random()*900000));
+  _otpExp=Date.now()+5*60*1000; // 5 min
+  S.settings.adminEmail=email;ps();
+
+  const btn=document.querySelector('#otp-step1 button, #otp-step2 button:last-child');
+
+  try{
+    toast('OTP পাঠানো হচ্ছে...');
+    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+      to_email: email,
+      otp_code: _otp,
+    }, EJS_PUBKEY);
+    document.getElementById('otp-step1').style.display='none';
+    document.getElementById('otp-step2').style.display='block';
+    toast('OTP পাঠানো হয়েছে ✓ Email চেক করুন');
+  }catch(err){
+    toast('Email পাঠাতে ব্যর্থ: '+( err?.text||err?.message||'অজানা ত্রুটি'),'e');
+    console.error(err);
+  }
+}
+
+function verifyOTP(){
+  const enteredOTP=document.getElementById('s-otp').value.trim();
+  const newPass=document.getElementById('s-new-pass').value.trim();
+  const confPass=document.getElementById('s-conf-pass').value.trim();
+
+  if(!enteredOTP){toast('OTP কোড দিন','e');return;}
+  if(Date.now()>_otpExp){toast('OTP মেয়াদ শেষ। নতুন OTP নিন।','e');resetOTPForm();return;}
+  if(enteredOTP!==_otp){toast('ভুল OTP কোড','e');return;}
+  if(!newPass){toast('নতুন পাসওয়ার্ড দিন','e');return;}
+  if(newPass.length<6){toast('পাসওয়ার্ড কমপক্ষে ৬ অক্ষর','e');return;}
+  if(newPass!==confPass){toast('পাসওয়ার্ড মিলছে না','e');return;}
+
+  S.settings.adminPass=newPass;
+  _otp=null;_otpExp=0;
+  ps();
+  toast('পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে ✓');
+  resetOTPForm();
+}
+
+function resetOTPForm(){
+  document.getElementById('otp-step1').style.display='block';
+  document.getElementById('otp-step2').style.display='none';
+  document.getElementById('s-otp').value='';
+  document.getElementById('s-new-pass').value='';
+  document.getElementById('s-conf-pass').value='';
+  document.getElementById('s-curr-pass').value='';
+  _otp=null;_otpExp=0;
+}
+function exportData(){
+  const blob=new Blob([JSON.stringify({books:S.books,cats:S.cats,settings:S.settings,site:siteData()},null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kitab-ghor.json';a.click();
+  toast('ডেটা এক্সপোর্ট হয়েছে');
+}
+function importData(){
+  const inp=document.createElement('input');inp.type='file';inp.accept='.json';
+  inp.onchange=e=>{
+    const f=e.target.files[0];if(!f)return;
+    const r=new FileReader();r.onload=ev=>{
+      try{const d=JSON.parse(ev.target.result);
+        if(d.books)S.books=d.books;if(d.cats)S.cats=d.cats;if(d.settings)S.settings={...S.settings,...d.settings};if(d.site){applySite(d.site);menuW();psite();}
+        pb();pc();ps();renderDashboard();toast('ইম্পোর্ট সফল হয়েছে ✓');
+      }catch(e){toast('ফাইল ঠিক নেই','e');}
+    };r.readAsText(f);
+  };inp.click();
+}
+function confirmReset(){
+  openConfirm('ডেমো ডেটা রিসেট করবেন?','সব পরিবর্তন মুছে যাবে।',()=>{
+    S.books=DB.map(b=>({...b}));S.cats=DC.map(c=>({...c}));
+    S.settings={siteName:'কিতাব ঘর',siteSub:'আপনার কওমি লাইব্রেরি',adminUser:'admin',adminPass:'admin123'};
+    pb();pc();ps();renderDashboard();toast('রিসেট হয়েছে');
+  });
+}
+
+/* ========== CONFIRM ========== */
+function openConfirm(ttl,msg,cb){
+  confirmCb=cb;
+  document.getElementById('confirm-ttl').textContent=ttl;
+  document.getElementById('confirm-msg').textContent=msg;
+  document.getElementById('confirm-ok').onclick=()=>{closeConfirm();if(confirmCb)confirmCb();};
+  document.getElementById('confirm-ov').classList.add('open');
+}
+function closeConfirm(){document.getElementById('confirm-ov').classList.remove('open');}
+document.getElementById('confirm-ov').addEventListener('click',e=>{if(e.target===e.currentTarget)closeConfirm();});
+
+/* ========== TOAST ========== */
+function toast(msg,type='s'){
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  document.getElementById('toast-c').appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.2s';setTimeout(()=>t.remove(),200);},2600);
+}
+
+/* ========== ICONS & HELPERS ========== */
+const DEFAULT_BANNER='https://i.postimg.cc/cC1WpNgN/43b81e2e6095bc1d0b9fe0c23ccc51b4.jpg';
+const ico=(n,c='')=>`<svg class="ic${c?' '+c:''}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const enDigits=s=>String(s).replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d));
+function openLink(url){
+  url=String(url||'').trim();if(!url)return;
+  if(/^(tel:|mailto:|sms:)/i.test(url)){location.href=url;return;}
+  if(!/^https?:\/\//i.test(url))url='https://'+url.replace(/^\/+/,'');
+  window.open(url,'_blank','noopener');
+}
+
+/* ========== SITE DATA (banners / menu / contact) — synced via cloud ========== */
+const DEFAULT_MENU=[
+  {id:'m-share',label:'অ্যাপ শেয়ার',icon:'share',type:'share',show:true},
+  {id:'m-privacy',label:'প্রাইভেসি পলিসি',icon:'shield',type:'page',body:'এই অ্যাপে আমরা আপনার কোনো ব্যক্তিগত তথ্য সংগ্রহ করি না।\n\nআপনার পছন্দের কিতাবের তালিকা শুধু আপনার নিজের ডিভাইসে সংরক্ষিত থাকে। কিতাবগুলো Google Drive-এর লিংকের মাধ্যমে পড়ানো হয়।',show:true},
+  {id:'m-contact',label:'যোগাযোগ',icon:'phone',type:'contact',show:true},
+  {id:'m-settings',label:'সেটিংস',icon:'cog',type:'admin',show:true},
+  {id:'m-search',label:'খুঁজুন',icon:'search',type:'search',show:true},
+];
+const MENU_TYPE_LABEL={link:'লিংক',page:'লেখা/পেজ',contact:'যোগাযোগ',share:'শেয়ার',search:'সার্চ',admin:'অ্যাডমিন'};
+const ICON_CHOICES=[['info','তথ্য'],['book','বই'],['shield','প্রাইভেসি'],['phone','ফোন'],['mail','ইমেইল'],['facebook','ফেসবুক'],['youtube','ইউটিউব'],['telegram','টেলিগ্রাম'],['chat','চ্যাট / হোয়াটসঅ্যাপ'],['instagram','ইনস্টাগ্রাম'],['globe','ওয়েবসাইট'],['share','শেয়ার'],['search','সার্চ'],['cog','সেটিংস'],['heart','হার্ট'],['star','স্টার'],['bookmark','বুকমার্ক'],['link','লিংক'],['file','ফাইল'],['pin','ঠিকানা']];
+const CT_TYPES={phone:['ফোন নম্বর','phone'],whatsapp:['হোয়াটসঅ্যাপ','chat'],email:['ইমেইল','mail'],facebook:['ফেসবুক','facebook'],telegram:['টেলিগ্রাম','telegram'],youtube:['ইউটিউব','youtube'],instagram:['ইনস্টাগ্রাম','instagram'],website:['ওয়েবসাইট','globe'],address:['ঠিকানা','pin']};
+
+function siteData(){return{banners:S.banners,contact:S.contact,menu:S.menu,bannerSec:S.bannerSec,drawerImg:S.drawerImg,siteName:S.settings.siteName,siteSub:S.settings.siteSub};}
+function psite(){sv('kg_site',siteData());schedSave();}
+function applySite(d){
+  if(!d||typeof d!=='object')return;
+  if(Array.isArray(d.banners))S.banners=d.banners;
+  if(Array.isArray(d.contact))S.contact=d.contact;
+  if(Array.isArray(d.menu))S.menu=d.menu;
+  if(typeof d.drawerImg==='string')S.drawerImg=d.drawerImg;
+  if(d.bannerSec)S.bannerSec=Math.min(20,Math.max(2,+d.bannerSec||4));
+  if(typeof d.siteName==='string'&&d.siteName)S.settings.siteName=d.siteName;
+  if(typeof d.siteSub==='string')S.settings.siteSub=d.siteSub;
+}
+// menu always exists and always contains an admin-entry item (so the admin can never lock themselves out)
+function menuW(){
+  if(!Array.isArray(S.menu)||!S.menu.length)S.menu=DEFAULT_MENU.map(x=>({...x}));
+  if(!S.menu.some(x=>x.type==='admin'))S.menu.push({...DEFAULT_MENU.find(x=>x.type==='admin')});
+  return S.menu;
+}
+
+/* ========== BANNER SLIDER ========== */
+let _bnSig='',_bnList=[],_bnIdx=0,_bnTimer=null,_bnPause=false,_bnResume=null;
+function getBannerList(){
+  const l=(S.banners||[]).filter(b=>b&&b.img);
+  return l.length?l:[{img:S.settings.bannerUrl||DEFAULT_BANNER,link:''}];
+}
+function setBnDot(i){_bnIdx=i;document.querySelectorAll('#banner-dots i').forEach((d,k)=>d.classList.toggle('on',k===i));}
+function renderBanners(){
+  const tr=document.getElementById('banner-track'),dots=document.getElementById('banner-dots');
+  if(!tr)return;
+  const list=getBannerList();
+  const sig=JSON.stringify(list)+'|'+(S.bannerSec||4);
+  if(sig!==_bnSig){
+    _bnSig=sig;_bnList=list;_bnIdx=0;
+    tr.innerHTML=list.map((b,i)=>`<div class="banner-slide${b.link?' has-link':''}" data-i="${i}"><img src="${esc(b.img)}" alt="" draggable="false"${i?' loading="lazy"':''}></div>`).join('');
+    dots.innerHTML=list.length>1?list.map((_,i)=>`<i${i===0?' class="on"':''}></i>`).join(''):'';
+    tr.scrollLeft=0;
+    clearInterval(_bnTimer);
+    if(list.length>1){
+      _bnTimer=setInterval(()=>{
+        if(S.currentPage!=='home'||_bnPause||!tr.clientWidth)return;
+        const n=(_bnIdx+1)%list.length;
+        tr.scrollTo({left:n*tr.clientWidth,behavior:'smooth'});
+      },Math.max(2,S.bannerSec||4)*1000);
+    }
+  }
+  // hidden pages reset scroll position — restore it
+  requestAnimationFrame(()=>{if(tr.clientWidth&&_bnIdx)tr.scrollLeft=_bnIdx*tr.clientWidth;});
+}
+function initBannerEvents(){
+  const tr=document.getElementById('banner-track');if(!tr)return;
+  tr.addEventListener('scroll',()=>{const w=tr.clientWidth;if(!w)return;const i=Math.round(tr.scrollLeft/w);if(i!==_bnIdx)setBnDot(i);},{passive:true});
+  tr.addEventListener('click',e=>{const s=e.target.closest('.banner-slide');if(!s)return;const b=_bnList[+s.dataset.i];if(b&&b.link)openLink(b.link);});
+  const pause=()=>{_bnPause=true;clearTimeout(_bnResume);};
+  const resume=()=>{clearTimeout(_bnResume);_bnResume=setTimeout(()=>{_bnPause=false;},3500);};
+  tr.addEventListener('touchstart',pause,{passive:true});
+  tr.addEventListener('touchend',resume,{passive:true});
+  tr.addEventListener('touchcancel',resume,{passive:true});
+  tr.addEventListener('mouseenter',pause);
+  tr.addEventListener('mouseleave',resume);
+}
+
+/* ========== DRAWER ========== */
+function renderDrawer(){
+  const t=document.getElementById('drawer-title');if(!t)return;
+  t.textContent=S.settings.siteName||'কিতাব ঘর';
+  document.getElementById('drawer-sub').textContent=S.settings.siteSub||'';
+  const dh=document.getElementById('drawer-head'),du=(S.drawerImg||'').trim();
+  dh.classList.toggle('has-img',!!du);
+  dh.style.backgroundImage=du?`linear-gradient(to top,rgba(0,0,0,.6),rgba(0,0,0,.05)),url("${du.replace(/["\\\n]/g,'')}")`:'';
+  document.getElementById('drawer-list').innerHTML=menuW().filter(i=>i.show!==false||i.type==='admin').map(i=>
+    `<button class="drawer-item" onclick="menuAction('${esc(i.id)}')"><span class="di-ic">${ico(i.icon||'info')}</span><span class="di-t">${esc(i.label)}</span>${ico('chev','chev')}</button>`).join('');
+}
+function openDrawer(){
+  renderDrawer();
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawer-ov').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDrawer(){
+  const d=document.getElementById('drawer');if(!d||!d.classList.contains('open'))return;
+  d.classList.remove('open');
+  document.getElementById('drawer-ov').classList.remove('open');
+  document.body.style.overflow='';
+}
+function menuAction(id){
+  const it=S.menu.find(x=>x.id===id);if(!it)return;
+  closeDrawer();
+  switch(it.type){
+    case 'link':openLink(it.url);break;
+    case 'page':openInfo(it.label,`<div class="info-text">${esc(it.body)}</div>`);break;
+    case 'contact':openContact(it.label);break;
+    case 'share':shareApp();break;
+    case 'search':goPage('search');break;
+    
+  }
+}
+function shareApp(){
+  const data={title:S.settings.siteName||'কিতাব ঘর',text:(S.settings.siteName||'কিতাব ঘর')+(S.settings.siteSub?' — '+S.settings.siteSub:''),url:location.href.split('#')[0]};
+  if(navigator.share){navigator.share(data).catch(()=>{});return;}
+  try{navigator.clipboard.writeText(data.url).then(()=>toast('লিংক কপি হয়েছে'),()=>toast(data.url));}
+  catch(e){toast(data.url);}
+}
+function openInfo(title,html){
+  document.getElementById('info-ttl').textContent=title||'';
+  document.getElementById('info-body').innerHTML=html;
+  document.getElementById('info-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeInfo(){document.getElementById('info-modal').classList.remove('open');document.body.style.overflow='';}
+
+/* ========== CONTACT ========== */
+function contactHref(c){
+  let v=String(c.value||'').trim();if(!v)return'';
+  switch(c.type){
+    case 'phone':return 'tel:'+enDigits(v).replace(/[^\d+]/g,'');
+    case 'email':return 'mailto:'+v;
+    case 'whatsapp':return /^https?:\/\//i.test(v)?v:'https://wa.me/'+enDigits(v).replace(/\D/g,'');
+    case 'telegram':return /^https?:\/\//i.test(v)?v:'https://t.me/'+v.replace(/^@/,'');
+    case 'address':return '';
+    default:return /^https?:\/\//i.test(v)?v:'https://'+v.replace(/^\/+/,'');
+  }
+}
+function openContact(title){
+  const l=S.contact||[];
+  const html=l.length?l.map(c=>{
+    const t=CT_TYPES[c.type]||CT_TYPES.website;
+    const href=contactHref(c);
+    const inner=`${ico(t[1])}<div style="flex:1;min-width:0"><div class="ct-l">${esc(c.label||t[0])}</div><div class="ct-v">${esc(c.value)}</div></div>${href?ico('chev','chev'):''}`;
+    if(!href)return `<div class="ct-row">${inner}</div>`;
+    const ext=/^https?:/i.test(href);
+    return `<a class="ct-row" href="${esc(href)}"${ext?' target="_blank" rel="noopener"':''}>${inner}</a>`;
+  }).join(''):'<div class="adm-empty">যোগাযোগের তথ্য এখনো যোগ করা হয়নি।</div>';
+  openInfo(title||'যোগাযোগ',html);
+}
+
+/* ========== ADMIN: BANNERS ========== */
+let _editBn=null;
+function renderBannerAdmin(){
+  document.getElementById('bn-sec').value=S.bannerSec||4;
+  const l=S.banners||[];
+  document.getElementById('bn-list').innerHTML=l.length?l.map((b,i)=>`
+    <div class="adm-row">
+      <img class="adm-bn-thumb" src="${esc(b.img)}" alt="" onerror="this.style.visibility='hidden'">
+      <div style="flex:1;min-width:0"><div class="adm-t">ব্যানার ${i+1}</div><div class="adm-s">${b.link?esc(b.link):'কোনো লিংক নেই'}</div></div>
+      <div class="adm-acts">
+        <button class="btn btn-secondary btn-xs" onclick="moveBanner(${i},-1)" ${i===0?'disabled':''} aria-label="উপরে">${ico('up')}</button>
+        <button class="btn btn-secondary btn-xs" onclick="moveBanner(${i},1)" ${i===l.length-1?'disabled':''} aria-label="নিচে">${ico('down')}</button>
+        <button class="btn btn-secondary btn-xs" onclick="editBanner(${i})" aria-label="এডিট">${ico('edit')}</button>
+        <button class="btn btn-xs" style="background:rgba(229,62,62,0.1);color:var(--danger);border:1px solid rgba(229,62,62,0.2)" onclick="delBanner(${i})" aria-label="মুছুন">${ico('trash')}</button>
+      </div>
+    </div>`).join(''):'<div class="adm-empty">কোনো ব্যানার নেই — এখন ডিফল্ট ছবি দেখাচ্ছে। উপরের ফর্ম থেকে যোগ করুন।</div>';
+}
+function saveBanner(){
+  const img=document.getElementById('bn-img').value.trim();
+  const link=document.getElementById('bn-link').value.trim();
+  if(!img){toast('ছবির লিংক দিন','e');return;}
+  if(!Array.isArray(S.banners))S.banners=[];
+  if(_editBn!==null&&S.banners[_editBn]){S.banners[_editBn]={...S.banners[_editBn],img,link};toast('ব্যানার আপডেট হয়েছে ✓');}
+  else{S.banners.push({id:'bn-'+Date.now(),img,link});toast('ব্যানার যোগ হয়েছে ✓');}
+  cancelBannerEdit();psite();renderBannerAdmin();renderBanners();
+}
+function editBanner(i){
+  const b=S.banners[i];if(!b)return;_editBn=i;
+  document.getElementById('bn-img').value=b.img||'';
+  document.getElementById('bn-link').value=b.link||'';
+  document.getElementById('bn-save-btn').innerHTML=ico('save')+' আপডেট করুন';
+  document.getElementById('bn-cancel-btn').style.display='inline-flex';
+  document.getElementById('bn-img').focus();
+}
+function cancelBannerEdit(){
+  _editBn=null;
+  document.getElementById('bn-img').value='';document.getElementById('bn-link').value='';
+  document.getElementById('bn-save-btn').innerHTML=ico('plus')+' যোগ করুন';
+  document.getElementById('bn-cancel-btn').style.display='none';
+}
+function moveBanner(i,d){
+  const j=i+d;if(j<0||j>=S.banners.length)return;
+  [S.banners[i],S.banners[j]]=[S.banners[j],S.banners[i]];
+  psite();renderBannerAdmin();renderBanners();
+}
+function delBanner(i){
+  openConfirm('ব্যানার মুছে ফেলবেন?','এই ছবিটি হোম থেকে সরে যাবে।',()=>{
+    S.banners.splice(i,1);cancelBannerEdit();psite();renderBannerAdmin();renderBanners();toast('ব্যানার মুছে ফেলা হয়েছে');
+  });
+}
+function saveBannerSec(){
+  const v=Math.min(20,Math.max(2,parseInt(document.getElementById('bn-sec').value)||4));
+  S.bannerSec=v;document.getElementById('bn-sec').value=v;
+  psite();renderBanners();toast('সেভ হয়েছে ✓');
+}
+
+/* ========== ADMIN: CONTACT ========== */
+let _editCt=null;
+function renderContactAdmin(){
+  const sel=document.getElementById('ct-type');
+  if(!sel.options.length)sel.innerHTML=Object.entries(CT_TYPES).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('');
+  const l=S.contact||[];
+  document.getElementById('ct-list').innerHTML=l.length?l.map((c,i)=>{
+    const t=CT_TYPES[c.type]||CT_TYPES.website;
+    return `<div class="adm-row">
+      <div class="adm-ic">${ico(t[1])}</div>
+      <div style="flex:1;min-width:0"><div class="adm-t">${esc(c.label||t[0])}</div><div class="adm-s">${esc(c.value)}</div></div>
+      <div class="adm-acts">
+        <button class="btn btn-secondary btn-xs" onclick="moveContact(${i},-1)" ${i===0?'disabled':''} aria-label="উপরে">${ico('up')}</button>
+        <button class="btn btn-secondary btn-xs" onclick="moveContact(${i},1)" ${i===l.length-1?'disabled':''} aria-label="নিচে">${ico('down')}</button>
+        <button class="btn btn-secondary btn-xs" onclick="editContact(${i})" aria-label="এডিট">${ico('edit')}</button>
+        <button class="btn btn-xs" style="background:rgba(229,62,62,0.1);color:var(--danger);border:1px solid rgba(229,62,62,0.2)" onclick="delContact(${i})" aria-label="মুছুন">${ico('trash')}</button>
+      </div></div>`;}).join(''):'<div class="adm-empty">এখনো কোনো যোগাযোগ তথ্য নেই।</div>';
+}
+function saveContact(){
+  const type=document.getElementById('ct-type').value;
+  const label=document.getElementById('ct-label').value.trim();
+  const value=document.getElementById('ct-value').value.trim();
+  if(!value){toast('নম্বর / ইমেইল / লিংক দিন','e');return;}
+  if(!Array.isArray(S.contact))S.contact=[];
+  if(_editCt!==null&&S.contact[_editCt]){S.contact[_editCt]={...S.contact[_editCt],type,label,value};toast('আপডেট হয়েছে ✓');}
+  else{S.contact.push({id:'ct-'+Date.now(),type,label,value});toast('যোগাযোগ তথ্য যোগ হয়েছে ✓');}
+  cancelContactEdit();psite();renderContactAdmin();
+}
+function editContact(i){
+  const c=S.contact[i];if(!c)return;_editCt=i;
+  document.getElementById('ct-type').value=c.type;
+  document.getElementById('ct-label').value=c.label||'';
+  document.getElementById('ct-value').value=c.value||'';
+  document.getElementById('ct-save-btn').innerHTML=ico('save')+' আপডেট করুন';
+  document.getElementById('ct-cancel-btn').style.display='inline-flex';
+  document.getElementById('ct-value').focus();
+}
+function cancelContactEdit(){
+  _editCt=null;
+  document.getElementById('ct-label').value='';document.getElementById('ct-value').value='';
+  document.getElementById('ct-save-btn').innerHTML=ico('plus')+' যোগ করুন';
+  document.getElementById('ct-cancel-btn').style.display='none';
+}
+function moveContact(i,d){
+  const j=i+d;if(j<0||j>=S.contact.length)return;
+  [S.contact[i],S.contact[j]]=[S.contact[j],S.contact[i]];psite();renderContactAdmin();
+}
+function delContact(i){
+  openConfirm('মুছে ফেলবেন?','এই যোগাযোগ তথ্য সরে যাবে।',()=>{
+    S.contact.splice(i,1);cancelContactEdit();psite();renderContactAdmin();toast('মুছে ফেলা হয়েছে');
+  });
+}
+
+/* ========== ADMIN: DRAWER MENU ========== */
+let _editMenu=null;
+function renderMenuAdmin(){
+  const m=menuW();
+  document.getElementById('menu-list').innerHTML=m.map((it,i)=>`
+    <div class="adm-row">
+      <div class="adm-ic">${ico(it.icon||'info')}</div>
+      <div style="flex:1;min-width:0"><div class="adm-t">${esc(it.label)}</div><div class="adm-s">${MENU_TYPE_LABEL[it.type]||it.type}${it.show===false?' · লুকানো':''}</div></div>
+      <div class="adm-acts">
+        <button class="btn btn-secondary btn-xs" onclick="moveMenu(${i},-1)" ${i===0?'disabled':''} aria-label="উপরে">${ico('up')}</button>
+        <button class="btn btn-secondary btn-xs" onclick="moveMenu(${i},1)" ${i===m.length-1?'disabled':''} aria-label="নিচে">${ico('down')}</button>
+        <button class="btn btn-secondary btn-xs" onclick="openEditMenu('${esc(it.id)}')" aria-label="এডিট">${ico('edit')}</button>
+        <button class="btn btn-xs" style="background:rgba(229,62,62,0.1);color:var(--danger);border:1px solid rgba(229,62,62,0.2)" onclick="delMenu('${esc(it.id)}')" ${it.type==='admin'?'disabled':''} aria-label="মুছুন">${ico('trash')}</button>
+      </div>
+    </div>`).join('');
+}
+function fillMenuIcons(val){
+  document.getElementById('mi-icon').innerHTML=ICON_CHOICES.map(([k,l])=>`<option value="${k}"${k===val?' selected':''}>${l}</option>`).join('');
+}
+function onMenuTypeChange(){
+  const t=document.getElementById('mi-type').value;
+  document.getElementById('mi-url-g').style.display=t==='link'?'block':'none';
+  document.getElementById('mi-body-g').style.display=t==='page'?'block':'none';
+}
+function openMenuModal(){document.getElementById('menu-modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeMenuModal(){document.getElementById('menu-modal').classList.remove('open');document.body.style.overflow='';}
+function openAddMenu(){
+  _editMenu=null;
+  document.getElementById('menu-modal-ttl').textContent='নতুন মেনু আইটেম';
+  document.getElementById('mi-label').value='';document.getElementById('mi-url').value='';document.getElementById('mi-body').value='';
+  fillMenuIcons('link');
+  document.getElementById('mi-type').value='link';document.getElementById('mi-type').disabled=false;
+  document.getElementById('mi-show').value='yes';document.getElementById('mi-show').disabled=false;
+  onMenuTypeChange();openMenuModal();
+}
+function openEditMenu(id){
+  const it=S.menu.find(x=>x.id===id);if(!it)return;_editMenu=id;
+  document.getElementById('menu-modal-ttl').textContent='মেনু আইটেম সম্পাদনা';
+  document.getElementById('mi-label').value=it.label||'';
+  document.getElementById('mi-url').value=it.url||'';
+  document.getElementById('mi-body').value=it.body||'';
+  fillMenuIcons(it.icon||'info');
+  document.getElementById('mi-type').value=it.type;
+  document.getElementById('mi-show').value=it.show===false?'no':'yes';
+  const lock=it.type==='admin';
+  document.getElementById('mi-type').disabled=lock;
+  document.getElementById('mi-show').disabled=lock;
+  onMenuTypeChange();openMenuModal();
+}
+function saveMenu(){
+  const label=document.getElementById('mi-label').value.trim();
+  const type=document.getElementById('mi-type').value;
+  const url=document.getElementById('mi-url').value.trim();
+  const body=document.getElementById('mi-body').value.trim();
+  if(!label){toast('নাম দিন','e');return;}
+  if(type==='link'&&!url){toast('লিংক দিন','e');return;}
+  if(type==='page'&&!body){toast('পেজের লেখা দিন','e');return;}
+  const item={
+    id:_editMenu||'m-'+Date.now(),label,
+    icon:document.getElementById('mi-icon').value,type,
+    url:type==='link'?url:'',body:type==='page'?body:'',
+    show:type==='admin'?true:document.getElementById('mi-show').value==='yes',
+  };
+  if(_editMenu){const i=S.menu.findIndex(x=>x.id===_editMenu);if(i!==-1)S.menu[i]=item;toast('আপডেট হয়েছে ✓');}
+  else{S.menu.push(item);toast('মেনু আইটেম যোগ হয়েছে ✓');}
+  psite();closeMenuModal();renderMenuAdmin();renderDrawer();
+}
+function moveMenu(i,d){
+  const j=i+d;if(j<0||j>=S.menu.length)return;
+  [S.menu[i],S.menu[j]]=[S.menu[j],S.menu[i]];psite();renderMenuAdmin();renderDrawer();
+}
+function delMenu(id){
+  const it=S.menu.find(x=>x.id===id);if(!it)return;
+  if(it.type==='admin'){toast('এই আইটেম মোছা যাবে না','e');return;}
+  openConfirm('"'+it.label+'" মুছে ফেলবেন?','ড্রয়ার মেনু থেকে সরে যাবে।',()=>{
+    S.menu=S.menu.filter(x=>x.id!==id);psite();renderMenuAdmin();renderDrawer();toast('মুছে ফেলা হয়েছে');
+  });
+}
+function resetMenu(){
+  openConfirm('ডিফল্ট মেনু ফিরিয়ে আনবেন?','আপনার যোগ করা আইটেমগুলো মুছে যাবে।',()=>{
+    S.menu=DEFAULT_MENU.map(x=>({...x}));psite();renderMenuAdmin();renderDrawer();toast('ডিফল্ট মেনু ফিরেছে');
+  });
+}
+
+function saveDrawerImg(){
+  S.drawerImg=document.getElementById('dr-img').value.trim();
+  psite();renderDrawer();toast('ড্রয়ারের ছবি সেভ হয়েছে ✓');
+}
+function clearDrawerImg(){
+  S.drawerImg='';document.getElementById('dr-img').value='';
+  psite();renderDrawer();toast('ছবি সরানো হয়েছে');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();closeInfo();}});
+window.addEventListener('load',initBannerEvents);
+
+/* ========== INIT ========== */
+window.addEventListener('load',async ()=>{
+  initStorage();
+  renderHome(); // তাৎক্ষণিক: localStorage থেকে
+  // Cloud থেকে fresh data লোড
+  const ok=await loadFromCloud();
+  if(ok){
+    // Cloud data দিয়ে সব page re-render
+    renderHome();
+    renderAllBooks();
+  }
+  // সব ইউজারের জন্য প্রতি ৬০ সেকেন্ডে auto-refresh
+  setInterval(async()=>{
+    const ok2=await loadFromCloud();
+    if(ok2){
+      if(S.currentPage==='home') renderHome();
+      else if(S.currentPage==='all-books') renderAllBooks();
+      else if(S.currentPage==='category'&&S._lastCatId) renderCatPage(S._lastCatId);
+    }
+  },60000);
+});
+</script>
+</body>
+</html>
