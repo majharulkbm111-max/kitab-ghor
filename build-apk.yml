@@ -1,6 +1,5 @@
 name: Build Android APK
 
-# GitHub-এ Actions ট্যাব → "Build Android APK" → Run workflow চাপলেই APK বানানো শুরু হবে।
 on:
   workflow_dispatch:
 
@@ -9,7 +8,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
@@ -22,12 +21,13 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - uses: android-actions/setup-android@v3
+      - name: Accept Android SDK licenses
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
 
       - name: Install dependencies
         run: npm install
 
-      - name: Prepare web files (admin.html অ্যাপে যাবে না)
+      - name: Prepare web files
         run: |
           rm -rf www && mkdir www
           cp index.html icon-192.png icon-512.png www/
@@ -54,7 +54,7 @@ jobs:
       - name: Set version code
         run: sed -E -i "s/versionCode( *=)? *[0-9]+/versionCode ${{ github.run_number }}/" android/app/build.gradle
 
-      - name: Restore signing key (আপডেট ঠিকমতো ইনস্টল হওয়ার জন্য)
+      - name: Restore signing key
         uses: actions/cache@v4
         with:
           path: ~/.android/debug.keystore
@@ -62,7 +62,9 @@ jobs:
 
       - name: Build APK
         working-directory: android
-        run: ./gradlew assembleDebug
+        run: |
+          chmod +x ./gradlew
+          ./gradlew assembleDebug
 
       - name: Name the APK
         run: cp android/app/build/outputs/apk/debug/app-debug.apk kitab-ghor.apk
@@ -73,11 +75,11 @@ jobs:
           name: kitab-ghor-apk
           path: kitab-ghor.apk
 
-      - name: Publish release (সরাসরি ডাউনলোড লিংক)
+      - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "apk-${{ github.run_number }}" kitab-ghor.apk \
-            --title "কিতাব ঘর APK #${{ github.run_number }}" \
+            --title "Kitab Ghor APK #${{ github.run_number }}" \
             --notes "Build #${{ github.run_number }}" \
             --prerelease
