@@ -1,0 +1,82 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Prepare web files
+        run: |
+          rm -rf www && mkdir www
+          cp index.html icon-192.png icon-512.png www/
+
+      - name: Prepare icon and splash sources
+        run: |
+          mkdir -p assets
+          cp cap-icon-only.png assets/icon-only.png
+          cp cap-icon-foreground.png assets/icon-foreground.png
+          cp cap-splash.png assets/splash.png
+
+      - name: Add Android platform
+        run: npx cap add android
+
+      - name: Generate icons and splash
+        run: >
+          npx --yes @capacitor/assets generate --android
+          --iconBackgroundColor '#053e1e' --iconBackgroundColorDark '#053e1e'
+          --splashBackgroundColor '#053e1e' --splashBackgroundColorDark '#053e1e'
+
+      - name: Sync
+        run: npx cap sync android
+
+      - name: Set version code
+        run: sed -E -i "s/versionCode( *=)? *[0-9]+/versionCode ${{ github.run_number }}/" android/app/build.gradle
+
+      - name: Restore signing key
+        uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: debug-keystore-v1
+
+      - name: Build APK
+        working-directory: android
+        run: ./gradlew assembleDebug
+
+      - name: Name the APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk kitab-ghor.apk
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kitab-ghor-apk
+          path: kitab-ghor.apk
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "apk-${{ github.run_number }}" kitab-ghor.apk \
+            --title "Kitab Ghor APK #${{ github.run_number }}" \
+            --notes "Build #${{ github.run_number }}" \
+            --prerelease
