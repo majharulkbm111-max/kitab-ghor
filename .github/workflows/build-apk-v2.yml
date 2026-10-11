@@ -38,6 +38,15 @@ jobs:
           cp cap-icon-only.png assets/icon-only.png
           cp cap-icon-foreground.png assets/icon-foreground.png
           cp cap-splash.png assets/splash.png
+          python3 - <<'PY'
+          import zlib, struct
+          w = h = 1024
+          raw = zlib.compress((b'\x00' + bytes([5, 62, 30]) * w) * h, 9)
+          def chunk(t, d):
+              return struct.pack('>I', len(d)) + t + d + struct.pack('>I', zlib.crc32(t + d) & 0xffffffff)
+          png = b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', w, h, 8, 2, 0, 0, 0)) + chunk(b'IDAT', raw) + chunk(b'IEND', b'')
+          open('assets/icon-background.png', 'wb').write(png)
+          PY
 
       - name: Add Android platform
         run: npx cap add android
