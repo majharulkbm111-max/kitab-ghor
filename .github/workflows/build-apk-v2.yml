@@ -48,6 +48,17 @@ jobs:
           open('assets/icon-background.png', 'wb').write(png)
           PY
 
+      - name: Splash and background settings
+        run: |
+          python3 - <<'PY'
+          import json
+          p = 'capacitor.config.json'
+          c = json.load(open(p, encoding='utf-8'))
+          c['backgroundColor'] = '#053e1e'
+          c.setdefault('plugins', {}).setdefault('SplashScreen', {}).update({'launchShowDuration': 1500, 'launchFadeOutDuration': 250})
+          json.dump(c, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
+          PY
+
       - name: Add Android platform
         run: npx cap add android
 
@@ -56,6 +67,39 @@ jobs:
           npx --yes @capacitor/assets generate --android
           --iconBackgroundColor '#053e1e' --iconBackgroundColorDark '#053e1e'
           --splashBackgroundColor '#053e1e' --splashBackgroundColorDark '#053e1e'
+
+      - name: Green splash and window theme
+        run: |
+          python3 - <<'PY'
+          import re, pathlib, xml.etree.ElementTree as ET
+          res = pathlib.Path('android/app/src/main/res')
+          (res / 'values' / 'kg_colors.xml').write_text(
+              '<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="kg_bg">#053e1e</color>\n</resources>\n',
+              encoding='utf-8')
+          p = res / 'values' / 'styles.xml'
+          s = p.read_text(encoding='utf-8')
+          def add_items(text, style, items):
+              m = re.search(r'(<style\s+name="%s"[^>]*>)(.*?)(</style>)' % re.escape(style), text, re.S)
+              if not m:
+                  print('style not found:', style)
+                  return text
+              body = m.group(2)
+              for name, _ in items:
+                  body = re.sub(r'\s*<item\s+name="%s"[^>]*>.*?</item>' % re.escape(name), '', body, flags=re.S)
+              body = body.rstrip() + ''.join('\n        <item name="%s">%s</item>' % (n, v) for n, v in items) + '\n    '
+              return text[:m.start()] + m.group(1) + body + m.group(3) + text[m.end():]
+          launch = [('windowSplashScreenBackground', '@color/kg_bg'), ('android:windowBackground', '@color/kg_bg')]
+          if list(res.glob('mipmap-*/ic_launcher_foreground.png')):
+              launch.append(('windowSplashScreenAnimatedIcon', '@mipmap/ic_launcher_foreground'))
+          n = add_items(s, 'AppTheme.NoActionBarLaunch', launch)
+          n = add_items(n, 'AppTheme.NoActionBar', [('android:windowBackground', '@color/kg_bg')])
+          try:
+              ET.fromstring(n.encode('utf-8'))
+              p.write_text(n, encoding='utf-8')
+              print('styles.xml patched')
+          except ET.ParseError as e:
+              print('XML invalid, left unchanged:', e)
+          PY
 
       - name: Sync
         run: npx cap sync android
